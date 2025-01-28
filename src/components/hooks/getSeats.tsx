@@ -36,8 +36,22 @@ export const getSeats = (eventId: string) => {
         if (!response.ok) {
           throw new Error(`Failed to load seats: ${response.statusText}`);
         }
-        const data = await response.json();
-        setSeats(data);
+        const data: SeatData = await response.json();
+        console.log(data, "puvodni data")
+
+        // Sort seatRows by seatRow and seats by place
+        const sortedData: SeatData = {
+          ...data,
+          seatRows: data.seatRows
+            .sort((a, b) => a.seatRow - b.seatRow) // Sort rows
+            .map((row) => ({
+              ...row,
+              seats: row.seats.sort((a, b) => a.place - b.place), // Sort seats within each row
+            })),
+        };
+
+        setSeats(sortedData);
+        console.log(sortedData, "sortedData")
       } catch (err: any) {
         setError(err.message || "Failed to load seats.");
       } finally {
