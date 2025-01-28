@@ -11,9 +11,12 @@ import {
 	DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu.tsx';
 import './App.css';
+import { getEvent } from "@/components/hooks/getEvent"; 
 
 function App() {
 	const isLoggedIn = false;
+	const { event, loading, error } = getEvent();
+
 	
 	return (
 		<div className="flex flex-col grow">
@@ -86,16 +89,36 @@ function App() {
 					
 					{/* event info */}
 					<aside className="w-full max-w-sm bg-white rounded-md shadow-sm p-3 flex flex-col gap-2">
-						{/* event header image placeholder */}
-						<div className="bg-zinc-100 rounded-md h-32" />
+					{loading && <p>Loading event details...</p>}
+            		{error && <p className="text-red-500">{error}</p>}
+					{event && (
+						<>
+						{/* event header image placeholder 
+						<div className="bg-zinc-100 rounded-md h-32" />*/}
+						<img
+                  src={event.headerImageUrl}
+                  alt={event.namePub}
+				  className="rounded-md h-32 object-cover"
+                />
 						{/* event name */}
-						<h1 className="text-xl text-zinc-900 font-semibold">[event-name]</h1>
+						<h1 className="text-xl text-zinc-900 font-semibold">{event.namePub}</h1>
 						{/* event description */}
-						<p className="text-sm text-zinc-500">[event-description]: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid asperiores beatae deserunt dicta dolorem eius eos fuga laborum nisi officia pariatur quidem repellendus, reprehenderit sapiente, sed tenetur vel voluptatibus?</p>
+						<p className="text-sm text-zinc-500">{event.description}</p>
+						<p className="text-sm text-zinc-400">
+                  <strong>Místo:</strong> {event.place}
+                </p>
+                <p className="text-sm text-zinc-400">
+                  <strong>Od:</strong>{" "}
+                  {new Date(event.dateFrom).toLocaleString()}
+                </p>
+                <p className="text-sm text-zinc-400">
+                  <strong>Do:</strong> {new Date(event.dateTo).toLocaleString()}
+                </p>
 						{/* add to calendar button */}
 						<Button variant="secondary" disabled>
 							Add to calendar
 						</Button>
+						</>)}
 					</aside>
 				</div>
 			</main>
