@@ -24,7 +24,7 @@ export const getEvent = () => {
           "https://nfctron-frontend-seating-case-study-2024.vercel.app/event"
         );
         if (!response.ok) {
-          throw new Error(`Failed to fetch: ${response.statusText}`);
+          throw new Error(`Nedošlo k načtení dat. Kontaktujte prosím podporu.: ${response.statusText}`);
         }
         const data = await response.json();
         setEvent(data);
