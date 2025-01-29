@@ -17,7 +17,8 @@ import { getSeats } from "./components/hooks/getSeats";
 import { useCart } from "@/components/context/CartContext";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import GuestCheckout from "@/components/GuestCheckout";
+import Checkout from "@/components/Checkout";
+import LoginModal from "@/components/LoginModal";
 
 function App() {
     const isLoggedIn = false;
@@ -29,9 +30,12 @@ function App() {
 
     const { cart } = useCart();
 
+    const navigate = useNavigate(); // React Router navigace
+
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
-    const navigate = useNavigate(); // React Router navigace
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+
 
     return (
         <Routes>
@@ -210,12 +214,20 @@ function App() {
                                             <p className="text-sm text-gray-600">
                                                 You need to log in or continue as a guest to complete your purchase.
                                             </p>
-                                            <Button variant="default">Log in</Button>
+                                            <Button
+                                                variant="default"
+                                                onClick={() => {
+                                                    setIsCheckoutOpen(false); // Zavřít checkout modal
+                                                    setIsLoginOpen(true); // Otevřít login modal
+                                                }}
+                                            >
+                                                Log in
+                                            </Button>
                                             <Button
                                                 variant="secondary"
                                                 onClick={() => {
                                                     setIsCheckoutOpen(false); // Zavři modal
-                                                    navigate("/guest-checkout"); // Přesměruj na checkout stránku
+                                                    navigate("/checkout"); // Přesměruj na checkout stránku
                                                 }}
                                             >
                                                 Continue as Guest
@@ -227,11 +239,13 @@ function App() {
                                 </div>
                             </DialogContent>
                         </Dialog>
+						{/* Login Modal */}
+                        <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
                     </div>
                 }
             ></Route>
 
-            <Route path="/guest-checkout" element={<GuestCheckout />} />
+            <Route path="/checkout" element={<Checkout />} />
         </Routes>
     );
 }

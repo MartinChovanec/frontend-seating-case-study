@@ -1,16 +1,34 @@
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/components/context/CartContext";
 import { getEvent } from "@/components/hooks/GetEvent";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const GuestCheckout = () => {
+const Checkout = () => {
     const navigate = useNavigate();
     const { cart, clearCart } = useCart();
     const { event } = getEvent();
+
+    const [user, setUser] = useState<{ email: string; firstName: string; lastName: string } | null>(null);
     const [form, setForm] = useState({ firstName: "", lastName: "", email: "" });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    // Zjistit, zda je uživatel přihlášen
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
+
+            // 🟢 Pokud má uživatel hodnoty, nastavíme je do formuláře
+            setForm({
+                firstName: parsedUser.firstName || "",
+                lastName: parsedUser.lastName || "",
+                email: parsedUser.email || "",
+            });
+        }
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,7 +39,6 @@ const GuestCheckout = () => {
         setLoading(true);
         setError(null);
 
-        // Kontrola, jestli jsou vyplněná všechna pole
         if (!form.firstName || !form.lastName || !form.email) {
             setError("Vyplňte všechna povinná pole.");
             setLoading(false);
@@ -42,7 +59,9 @@ const GuestCheckout = () => {
                 lastName: form.lastName,
             },
         };
+
         console.log(orderData, "orderData to fetch");
+
         try {
             const response = await fetch("https://nfctron-frontend-seating-case-study-2024.vercel.app/order", {
                 method: "POST",
@@ -70,12 +89,31 @@ const GuestCheckout = () => {
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-50 p-6">
             <div className="bg-white shadow-md rounded-md p-6 max-w-lg w-full">
-                <h1 className="text-2xl font-semibold text-center text-gray-900 mb-4">Guest Checkout</h1>
-                <p className="text-sm text-gray-500 text-center mb-6">Vyplňte své údaje pro dokončení nákupu.</p>
+                <h1 className="text-2xl font-semibold text-center text-gray-900 mb-4">Checkout</h1>
+                <p className="text-sm text-gray-500 text-center mb-6">
+                    {user ? "Zkontrolujte své údaje a dokončete nákup." : "Vyplňte své údaje pro dokončení nákupu."}
+                </p>
 
                 {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+
+                <h3 className="text-lg font-semibold text-gray-900 mt-4">Seznam lístků</h3>
+                    {cart.length === 0 ? (
+                        <p className="text-gray-500 text-sm text-center">V košíku nejsou žádné lístky.</p>
+                    ) : (
+                        cart.map((item, index) => (
+                            <div key={index} className="border-b py-2 text-zinc-500">
+                                <p>
+                                    <strong>Řada:</strong> {item.row}, <strong>Sedadlo:</strong> {item.place}
+                                </p>
+                                <p>
+                                    <strong>Cena:</strong> {item.price} CZK
+                                </p>
+                            </div>
+                        ))
+                    )}
+                    {/* Formulář pro hosta nebo možnost upravit informace pro přihlášeného uživatele */}
                     <div>
                         <label className="text-sm font-medium text-gray-700">Jméno</label>
                         <input
@@ -112,12 +150,14 @@ const GuestCheckout = () => {
                         />
                     </div>
 
+                   
+
                     <div className="flex justify-between mt-4">
                         <Button variant="secondary" onClick={() => navigate("/")}>
                             Zpět
                         </Button>
-                        <Button type="submit" variant="default">
-                            Dokončit nákup
+                        <Button type="submit" variant="default" disabled={loading}>
+                            {loading ? "Odesílání..." : "Dokončit nákup"}
                         </Button>
                     </div>
                 </form>
@@ -126,4 +166,4 @@ const GuestCheckout = () => {
     );
 };
 
-export default GuestCheckout;
+export default Checkout;
