@@ -6,6 +6,8 @@ import React from "react";
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     "data-number"?: number; // Prop for seat number
     "data-information"?: string; // Additional seat info (e.g., "Nedostupné")
+    "data-ticket-type"?: string; // Ticket type (e.g., "VIP ticket")
+    "data-price"?: number; // Ticket price
 }
 
 export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => {
@@ -40,7 +42,27 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                         </div>
                     </PopoverTrigger>
                     <PopoverContent>
-                        <pre>{JSON.stringify({ seatData: null }, null, 2)}</pre>
+                        <div className="p-2 text-sm">
+                            {/* Display seat information */}
+                            <p>
+                                <strong>Seat:</strong> {seatNumber}
+                            </p>
+                            {props["data-ticket-type"] && (
+                                <p>
+                                    <strong>Type:</strong> {props["data-ticket-type"]}
+                                </p>
+                            )}
+                            {props["data-price"] !== undefined && (
+                                <p>
+                                    <strong>Price:</strong> {props["data-price"]} CZK
+                                </p>
+                            )}
+                            {props["data-information"] && (
+                                <p>
+                                    <strong>Info:</strong> {props["data-information"]}
+                                </p>
+                            )}
+                        </div>
 
                         <footer className="flex flex-col">
                             {isInCart ? (
