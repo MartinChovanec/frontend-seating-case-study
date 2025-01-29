@@ -78,6 +78,9 @@ const Checkout = () => {
 
             // Vymazat košík a přesměrovat na potvrzení objednávky
             clearCart();
+            // Uložení objednávky do localStorage
+            localStorage.setItem("order", JSON.stringify(responseData));
+
             navigate("/order-confirmation");
         } catch (err: any) {
             setError(err.message || "Nepodařilo se dokončit nákup.");
@@ -89,7 +92,7 @@ const Checkout = () => {
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-50 p-6">
             <div className="bg-white shadow-md rounded-md p-6 max-w-lg w-full">
-                <h1 className="text-2xl font-semibold text-center text-gray-900 mb-4">Checkout</h1>
+                <h1 className="text-2xl font-semibold text-center text-gray-900 mb-4">Shrnutí</h1>
                 <p className="text-sm text-gray-500 text-center mb-6">
                     {user ? "Zkontrolujte své údaje a dokončete nákup." : "Vyplňte své údaje pro dokončení nákupu."}
                 </p>
@@ -97,8 +100,7 @@ const Checkout = () => {
                 {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-
-                <h3 className="text-lg font-semibold text-gray-900 mt-4">Seznam lístků</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mt-4">Seznam lístků</h3>
                     {cart.length === 0 ? (
                         <p className="text-gray-500 text-sm text-center">V košíku nejsou žádné lístky.</p>
                     ) : (
@@ -149,8 +151,6 @@ const Checkout = () => {
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-
-                   
 
                     <div className="flex justify-between mt-4">
                         <Button variant="secondary" onClick={() => navigate("/")}>

@@ -19,6 +19,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Checkout from "@/components/Checkout";
 import LoginModal from "@/components/LoginModal";
+import OrderConfirmation from "@/components/OrderConfirmation";
 
 function App() {
     const isLoggedIn = false;
@@ -244,7 +245,7 @@ function App() {
                     </div>
                 }
             ></Route>
-
+			<Route path="/order-confirmation" element={<OrderConfirmation />} />
             <Route path="/checkout" element={<Checkout />} />
         </Routes>
     );
