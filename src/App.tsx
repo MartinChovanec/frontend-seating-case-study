@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Seat } from "@/components/Seat.tsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.tsx";
 import { Button } from "@/components/ui/button.tsx";
@@ -14,6 +15,9 @@ import "./App.css";
 import { getEvent } from "@/components/hooks/getEvent";
 import { getSeats } from "@/components/hooks/getSeats";
 import { useCart } from "@/components/context/CartContext";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+
+
 
 function App() {
     const isLoggedIn = false;
@@ -24,6 +28,9 @@ function App() {
     const { seats, loading: seatsLoading, error: seatsError } = getSeats(event?.eventId || "");
 
     const { cart } = useCart();
+
+	const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+
 
     return (
         <div className="flex flex-col grow">
@@ -170,11 +177,37 @@ function App() {
                     </div>
 
                     {/* checkout button */}
-                    <Button disabled={cart.length === 0} variant="default">
+					<Button 
+                        disabled={cart.length === 0} 
+                        variant="default"
+                        onClick={() => setIsCheckoutOpen(true)} // Otevře modal
+                    >
                         Checkout now
                     </Button>
                 </div>
             </nav>
+
+			{/* Checkout Modal */}
+            <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Proceed to Checkout</DialogTitle>
+                    </DialogHeader>
+                    <div className="flex flex-col gap-4">
+                        {!isLoggedIn ? (
+                            <>
+                                <p className="text-sm text-gray-600">
+                                    You need to log in or continue as a guest to complete your purchase.
+                                </p>
+                                <Button variant="default">Log in</Button>
+                                <Button variant="secondary">Continue as Guest</Button>
+                            </>
+                        ) : (
+                            <p className="text-sm text-gray-600">You're logged in. Proceed to payment.</p>
+                        )}
+                    </div>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }
