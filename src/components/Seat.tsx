@@ -2,18 +2,45 @@ import { Button } from "@/components/ui/button.tsx";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.tsx";
 import { cn } from "@/lib/utils.ts";
 import React from "react";
+import { useCart } from "@/components/context/CartContext";
 
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
-    "data-number"?: number; // Prop for seat number
+    "data-number"?: number; // Seat number
     "data-information"?: string; // Additional seat info (e.g., "Nedostupné")
     "data-ticket-type"?: string; // Ticket type (e.g., "VIP ticket")
     "data-price"?: number; // Ticket price
+    "data-row"?: number; // Seat row
+    "data-seat-id"?: string; // Unique seat ID
 }
 
 export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => {
-    const isInCart = false;
-    const seatNumber = props["data-number"] || 0; // Get seat number
-    const isUnavailable = props["data-information"] === "Nedostupné"; // Check if seat is unavailable
+    const {
+        "data-number": seatNumber,
+        "data-information": seatInfo,
+        "data-ticket-type": ticketType,
+        "data-price": price,
+        "data-row": row,
+        "data-seat-id": seatId,
+    } = props;
+
+    const isUnavailable = seatInfo === "Nedostupné";
+
+    const { addToCart, removeFromCart, isInCart } = useCart();
+    const inCart = isInCart(seatId || "");
+
+    const handleClick = () => {
+        if (inCart) {
+            removeFromCart(seatId || "");
+        } else {
+            addToCart({
+                seatId: seatId || "",
+                row: row || 0,
+                place: seatNumber || 0,
+                ticketType,
+                price,
+            });
+        }
+    };
 
     return (
         <div>
@@ -31,49 +58,38 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                     <PopoverTrigger>
                         <div
                             className={cn(
-                                "size-8 rounded-full bg-zinc-100 hover:bg-zinc-200 transition-color",
+                                "size-8 rounded-full bg-zinc-100 hover:bg-zinc-200 transition-color flex items-center justify-center",
+                                inCart ? "bg-blue-300" : "",
                                 props.className
                             )}
                             ref={ref}
                         >
-                            <span className="text-xs text-zinc-600 font-medium">
-                                {seatNumber} {/* Display seat number */}
-                            </span>
+                            <span className="text-xs text-zinc-600 font-medium">{seatNumber}</span>
                         </div>
                     </PopoverTrigger>
                     <PopoverContent>
                         <div className="p-2 text-sm">
-                            {/* Display seat information */}
+                            <p>
+                                <strong>Row:</strong> {row}
+                            </p>
                             <p>
                                 <strong>Seat:</strong> {seatNumber}
                             </p>
-                            {props["data-ticket-type"] && (
+                            {ticketType && (
                                 <p>
-                                    <strong>Type:</strong> {props["data-ticket-type"]}
+                                    <strong>Type:</strong> {ticketType}
                                 </p>
                             )}
-                            {props["data-price"] !== undefined && (
+                            {price !== undefined && (
                                 <p>
-                                    <strong>Price:</strong> {props["data-price"]} CZK
-                                </p>
-                            )}
-                            {props["data-information"] && (
-                                <p>
-                                    <strong>Info:</strong> {props["data-information"]}
+                                    <strong>Price:</strong> {price} CZK
                                 </p>
                             )}
                         </div>
-
                         <footer className="flex flex-col">
-                            {isInCart ? (
-                                <Button disabled variant="destructive" size="sm">
-                                    Remove from cart
-                                </Button>
-                            ) : (
-                                <Button disabled variant="default" size="sm">
-                                    Add to cart
-                                </Button>
-                            )}
+                            <Button onClick={handleClick} variant={inCart ? "destructive" : "default"} size="sm">
+                                {inCart ? "Remove from cart" : "Add to cart"}
+                            </Button>
                         </footer>
                     </PopoverContent>
                 </Popover>

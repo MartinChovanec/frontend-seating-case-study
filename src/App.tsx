@@ -13,13 +13,17 @@ import {
 import "./App.css";
 import { getEvent } from "@/components/hooks/getEvent";
 import { getSeats } from "@/components/hooks/getSeats";
+import { useCart } from "@/components/context/CartContext";
 
 function App() {
     const isLoggedIn = false;
+
     const { event, loading, error } = getEvent();
 
     // Fetch seat data
     const { seats, loading: seatsLoading, error: seatsError } = getSeats(event?.eventId || "");
+
+    const { cart } = useCart();
 
     return (
         <div className="flex flex-col grow">
@@ -96,7 +100,7 @@ function App() {
                                                     key={seat.seatId}
                                                     className={`${
                                                         seat.information === "Nedostupné"
-                                                            ? "bg-gray-300 opacity-50" // Gray color for unavailable seats
+                                                            ? "bg-gray-300 opacity-50"
                                                             : ticketType?.name === "VIP ticket"
                                                             ? "bg-yellow-300"
                                                             : "bg-green-300"
@@ -104,12 +108,12 @@ function App() {
                                                     data-number={
                                                         seat.information !== "Nedostupné" ? seat.place : undefined
                                                     }
-                                                    data-information={seat.information} // Pass seat information
-                                                >
-                                                    {seat.information !== "Nedostupné" && (
-                                                        <span className="text-xs">{ticketType?.name}</span>
-                                                    )}
-                                                </Seat>
+                                                    data-information={seat.information}
+                                                    data-ticket-type={ticketType?.name}
+                                                    data-price={ticketType?.price}
+                                                    data-row={row.seatRow}
+                                                    data-seat-id={seat.seatId}
+                                                />
                                             );
                                         })}
                                     </div>
@@ -158,13 +162,15 @@ function App() {
                 {/* inner content */}
                 <div className="max-w-screen-lg p-6 flex justify-between items-center gap-4 grow">
                     {/* total in cart state */}
-                    <div className="flex flex-col">
-                        <span>Total for [?] tickets</span>
-                        <span className="text-2xl font-semibold">[?] CZK</span>
+                    <div className="flex flex-col text-zinc-400">
+                        <span>Total for {cart.length} tickets</span>
+                        <span className="text-2xl font-semibold">
+                            {cart.reduce((total, item) => total + (item.price || 0), 0)} CZK
+                        </span>
                     </div>
 
                     {/* checkout button */}
-                    <Button disabled variant="default">
+                    <Button disabled={cart.length === 0} variant="default">
                         Checkout now
                     </Button>
                 </div>
