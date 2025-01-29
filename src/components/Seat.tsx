@@ -7,20 +7,22 @@ import { useCart } from "@/components/context/CartContext";
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     "data-number"?: number; // Seat number
     "data-information"?: string; // Additional seat info (e.g., "Nedostupné")
-    "data-ticket-type"?: string; // Ticket type (e.g., "VIP ticket")
+    "data-ticket-type"?: string; // Ticket type ID
     "data-price"?: number; // Ticket price
     "data-row"?: number; // Seat row
     "data-seat-id"?: string; // Unique seat ID
+    "data-ticket-name"?: string; // Ticket type (e.g., "VIP ticket")
 }
 
 export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => {
     const {
         "data-number": seatNumber,
         "data-information": seatInfo,
-        "data-ticket-type": ticketType,
+        "data-ticket-type": ticketTypeId,
         "data-price": price,
         "data-row": row,
         "data-seat-id": seatId,
+        "data-ticket-name": name,
     } = props;
 
     const isUnavailable = seatInfo === "Nedostupné";
@@ -36,7 +38,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                 seatId: seatId || "",
                 row: row || 0,
                 place: seatNumber || 0,
-                ticketType,
+                ticketTypeId,
                 price,
             });
         }
@@ -75,9 +77,9 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                             <p>
                                 <strong>Seat:</strong> {seatNumber}
                             </p>
-                            {ticketType && (
+                            {ticketTypeId && (
                                 <p>
-                                    <strong>Type:</strong> {ticketType}
+                                    <strong>Type:</strong> {name}
                                 </p>
                             )}
                             {price !== undefined && (

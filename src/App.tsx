@@ -126,7 +126,8 @@ function App() {
                                                                         : undefined
                                                                 }
                                                                 data-information={seat.information}
-                                                                data-ticket-type={ticketType?.name}
+                                                                data-ticket-type={ticketType?.id}
+                                                                data-ticket-name={ticketType?.name}
                                                                 data-price={ticketType?.price}
                                                                 data-row={row.seatRow}
                                                                 data-seat-id={seat.seatId}

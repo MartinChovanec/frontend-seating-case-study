@@ -4,7 +4,7 @@ interface CartItem {
     seatId: string;
     row: number;
     place: number;
-    ticketType?: string;
+    ticketTypeId?: string;
     price?: number;
 }
 
@@ -13,6 +13,7 @@ interface CartContextProps {
     addToCart: (item: CartItem) => void;
     removeFromCart: (seatId: string) => void;
     isInCart: (seatId: string) => boolean;
+    clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -32,8 +33,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return cart.some((item) => item.seatId === seatId);
     };
 
+    const clearCart = () => {
+        setCart([]);
+    };
+
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, isInCart }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, isInCart, clearCart }}>
             {children}
         </CartContext.Provider>
     );
