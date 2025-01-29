@@ -1,75 +1,79 @@
-import { useCart } from "@/components/context/CartContext";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-function GuestCheckout() {
-    const { cart } = useCart();
+const GuestCheckout = () => {
+    const navigate = useNavigate();
+    const [form, setForm] = useState({ firstName: "", lastName: "", email: "" });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        alert("Order submitted!");
     };
 
     return (
-        <div className="max-w-screen-md mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Order Summary</h1>
+        <div className="flex flex-col items-center min-h-screen bg-gray-50 p-6">
+            <div className="bg-white shadow-md rounded-md p-6 max-w-lg w-full">
+                <h1 className="text-2xl font-semibold text-center text-gray-900 mb-4">
+                    Guest Checkout
+                </h1>
+                <p className="text-sm text-gray-500 text-center mb-6">
+                    Vyplňte své údaje pro dokončení nákupu.
+                </p>
 
-            {/* Shrnutí objednávky */}
-            <div className="bg-gray-100 p-4 rounded-md mb-6">
-                <h2 className="text-lg font-semibold">Your Order</h2>
-                <ul className="mt-2 space-y-2">
-                    {cart.map((item, index) => (
-                        <li key={index} className="flex justify-between">
-                            <span>
-                                Row {item.row}, Seat {item.place} - {item.ticketType}
-                            </span>
-                            <span>{item.price} CZK</span>
-                        </li>
-                    ))}
-                </ul>
-                <div className="mt-4 flex justify-between font-bold">
-                    <span>Total:</span>
-                    <span>
-                        {cart.reduce((total, item) => total + (item.price || 0), 0)} CZK
-                    </span>
-                </div>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label className="text-sm font-medium text-gray-700">Jméno</label>
+                        <input
+                            type="text"
+                            name="firstName"
+                            value={form.firstName}
+                            onChange={handleChange}
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="text-sm font-medium text-gray-700">Příjmení</label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            value={form.lastName}
+                            onChange={handleChange}
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="text-sm font-medium text-gray-700">E-mail</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div className="flex justify-between mt-4">
+                        <Button variant="secondary" onClick={() => navigate("/")}>
+                            Zpět
+                        </Button>
+                        <Button type="submit" variant="default">
+                            Dokončit nákup
+                        </Button>
+                    </div>
+                </form>
             </div>
-
-            {/* Formulář pro hosta */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label className="block text-sm font-medium mb-1">First Name</label>
-                    <input
-                        type="text"
-                        name="firstName"
-                        required
-                        className="w-full border border-gray-300 rounded-md p-2"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium mb-1">Last Name</label>
-                    <input
-                        type="text"
-                        name="lastName"
-                        required
-                        className="w-full border border-gray-300 rounded-md p-2"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium mb-1">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        required
-                        className="w-full border border-gray-300 rounded-md p-2"
-                    />
-                </div>
-                <Button type="submit" variant="default" className="w-full">
-                    Complete Purchase
-                </Button>
-            </form>
         </div>
     );
-}
+};
 
 export default GuestCheckout;
