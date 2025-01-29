@@ -9,7 +9,8 @@ interface TicketType {
 interface Seat {
   seatId: string;
   place: number;
-  ticketTypeId: string;
+  ticketTypeId?: string; // Optional for placeholder seats
+  information?: string; // Optional field for placeholder seats
 }
 
 interface SeatRow {
@@ -37,21 +38,32 @@ export const getSeats = (eventId: string) => {
           throw new Error(`Failed to load seats: ${response.statusText}`);
         }
         const data: SeatData = await response.json();
-        console.log(data, "puvodni data")
 
-        // Sort seatRows by seatRow and seats by place
-        const sortedData: SeatData = {
-          ...data,
-          seatRows: data.seatRows
-            .sort((a, b) => a.seatRow - b.seatRow) // Sort rows
-            .map((row) => ({
-              ...row,
-              seats: row.seats.sort((a, b) => a.place - b.place), // Sort seats within each row
-            })),
-        };
+        // Find the highest place number across all rows
+        const maxPlace = Math.max(
+          ...data.seatRows.flatMap((row) => row.seats.map((seat) => seat.place))
+        );
 
-        setSeats(sortedData);
-        console.log(sortedData, "sortedData")
+        // Fill missing places in each row
+        const filledSeatRows = data.seatRows.map((row) => {
+          const existingPlaces = new Set(row.seats.map((seat) => seat.place));
+
+          // Generate missing seats
+          const missingSeats = Array.from({ length: maxPlace }, (_, i) => i + 1)
+            .filter((place) => !existingPlaces.has(place))
+            .map((place) => ({
+              seatId: `placeholder-${row.seatRow}-${place}`,
+              place,
+              information: "Nedostupné",
+            }));
+
+          return {
+            ...row,
+            seats: [...row.seats, ...missingSeats].sort((a, b) => a.place - b.place), // Sort seats by place
+          };
+        });
+
+        setSeats({ ...data, seatRows: filledSeatRows });
       } catch (err: any) {
         setError(err.message || "Failed to load seats.");
       } finally {

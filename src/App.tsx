@@ -76,35 +76,36 @@ function App() {
                 {/* inner content */}
                 <div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full">
                     {/* seating card */}
-                    <div
-                        className="bg-white rounded-md grow grid p-3 self-stretch shadow-sm"
-                        style={{
-                            gridTemplateColumns: "repeat(auto-fill, minmax(40px, 1fr))",
-                            gridAutoRows: "40px",
-                        }}
-                    >
+                    <div className="bg-white rounded-md grow p-3 self-stretch shadow-sm">
                         {seatsLoading && <p>Loading seats...</p>}
                         {seatsError && <p className="text-red-500">{seatsError}</p>}
-                        {!seatsLoading &&
-                            seats &&
-                            seats.seatRows.map((row) =>
-                                row.seats.map((seat) => {
-                                    const ticketType = seats.ticketTypes.find((type) => type.id === seat.ticketTypeId);
-                                    return (
-                                        <Seat
-                                            key={seat.seatId}
-                                            className={`${
-                                                ticketType?.name === "VIP ticket" ? "bg-yellow-300" : "bg-green-300"
-                                            }`}
-                                        >
-                                            <span className="text-xs">
-                                                {`Row ${row.seatRow}, Seat ${seat.place}`}{" "}
-                                                {ticketType ? `(${ticketType.name})` : ""}
-                                            </span>
-                                        </Seat>
-                                    );
-                                })
-                            )}
+                        {!seatsLoading && seats && seats.seatRows.map((row) => (
+                            <div key={row.seatRow} className="mb-4">
+                                <h3 className="text-left text-xs font-medium text-zinc-600 mb-2">
+                                    Row {row.seatRow}
+                                </h3>
+                                <div className="flex gap-2">
+                                    {row.seats.map((seat) => {
+                                        const ticketType = seats.ticketTypes.find(
+                                            (type) => type.id === seat.ticketTypeId
+                                        );
+                                        return (
+                                            <Seat
+                                                key={seat.seatId}
+                                                className={`${
+                                                    ticketType?.name === "VIP ticket"
+                                                        ? "bg-yellow-300"
+                                                        : "bg-green-300"
+                                                }`}
+                                                data-number={seat.place} // Pass seat number to Seat
+                                            >
+                                                <span className="text-xs">{ticketType?.name}</span>
+                                            </Seat>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
                     {/* event info */}
