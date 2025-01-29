@@ -91,16 +91,21 @@ function App() {
                                         );
                                         return (
                                             <Seat
-                                                key={seat.seatId}
-                                                className={`${
-                                                    ticketType?.name === "VIP ticket"
-                                                        ? "bg-yellow-300"
-                                                        : "bg-green-300"
-                                                }`}
-                                                data-number={seat.place} // Pass seat number to Seat
-                                            >
-                                                <span className="text-xs">{ticketType?.name}</span>
-                                            </Seat>
+    key={seat.seatId}
+    className={`${
+        seat.information === "Nedostupné"
+            ? "bg-gray-300 opacity-50" // Gray color for unavailable seats
+            : ticketType?.name === "VIP ticket"
+            ? "bg-yellow-300"
+            : "bg-green-300"
+    }`}
+    data-number={seat.information !== "Nedostupné" ? seat.place : undefined}
+    data-information={seat.information} // Pass seat information
+>
+    {seat.information !== "Nedostupné" && (
+        <span className="text-xs">{ticketType?.name}</span>
+    )}
+</Seat>
                                         );
                                     })}
                                 </div>
