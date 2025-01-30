@@ -200,13 +200,13 @@ function App() {
                         <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle>Proceed to Checkout</DialogTitle>
+                                    <DialogTitle className="text-gray-600">Máte u nás účet?</DialogTitle>
                                 </DialogHeader>
                                 <div className="flex flex-col gap-4">
                                     {!isLoggedIn ? (
                                         <>
-                                            <p className="text-sm text-gray-600">
-                                                You need to log in or continue as a guest to complete your purchase.
+                                            <p className="text-sm text-gray-900">
+                                                Přihlašte se do svého účtu, nebo pokračujte jako host.
                                             </p>
                                             <Button
                                                 variant="default"
@@ -215,7 +215,7 @@ function App() {
                                                     setIsLoginOpen(true); // Otevřít login modal
                                                 }}
                                             >
-                                                Log in
+                                                Přihlásit se
                                             </Button>
                                             <Button
                                                 variant="secondary"
@@ -224,7 +224,7 @@ function App() {
                                                     navigate("/checkout"); // Přesměruj na checkout stránku
                                                 }}
                                             >
-                                                Continue as Guest
+                                                Pokračovat jako host
                                             </Button>
                                         </>
                                     ) : (
