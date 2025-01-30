@@ -3,6 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { cn } from "@/lib/utils.ts";
 import React from "react";
 import { useCart } from "@/components/context/CartContext";
+import { useState } from "react";
 
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     "data-number"?: number; // Seat number
@@ -27,6 +28,8 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
 
     const isUnavailable = seatInfo === "Nedostupné";
 
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
     const { addToCart, removeFromCart, isInCart } = useCart();
     const inCart = isInCart(seatId || "");
 
@@ -43,6 +46,13 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
             });
         }
     };
+    const seatClass = isUnavailable
+        ? "bg-gray-400 opacity-60"
+        : inCart
+        ? "bg-blue-600 text-white"
+        : name === "VIP ticket"
+        ? "bg-yellow-500"
+        : "bg-green-600";
 
     return (
         <div>
@@ -56,20 +66,27 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                     ref={ref}
                 />
             ) : (
-                <Popover>
-                    <PopoverTrigger>
+                <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+                    <PopoverTrigger
+                        onMouseEnter={() => setIsPopoverOpen(true)}
+                        onMouseLeave={() => setIsPopoverOpen(false)}
+                    >
                         <div
                             className={cn(
-                                "size-8 rounded-full bg-zinc-100 hover:bg-zinc-200 transition-color flex items-center justify-center",
-                                inCart ? "bg-blue-300" : "",
+                                "size-8 rounded-full transition-color flex items-center justify-center cursor-pointer",
+                                seatClass,
                                 props.className
                             )}
                             ref={ref}
+                            onClick={handleClick}
                         >
-                            <span className="text-xs text-zinc-600 font-medium">{seatNumber}</span>
+                            <span className="text-xs font-medium">{seatNumber}</span>
                         </div>
                     </PopoverTrigger>
-                    <PopoverContent>
+                    <PopoverContent
+                        onMouseEnter={() => setIsPopoverOpen(true)}
+                        onMouseLeave={() => setIsPopoverOpen(false)}
+                    >
                         <div className="p-2 text-sm">
                             <p>
                                 <strong>Řada:</strong> {row}

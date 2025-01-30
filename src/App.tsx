@@ -118,13 +118,6 @@ function App() {
                                                         return (
                                                             <Seat
                                                                 key={seat.seatId}
-                                                                className={`${
-                                                                    seat.information === "Nedostupné"
-                                                                        ? "bg-gray-300 opacity-50"
-                                                                        : ticketType?.name === "VIP ticket"
-                                                                        ? "bg-yellow-300"
-                                                                        : "bg-green-300"
-                                                                }`}
                                                                 data-number={
                                                                     seat.information !== "Nedostupné"
                                                                         ? seat.place
