@@ -72,19 +72,19 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                     <PopoverContent>
                         <div className="p-2 text-sm">
                             <p>
-                                <strong>Row:</strong> {row}
+                                <strong>Řada:</strong> {row}
                             </p>
                             <p>
-                                <strong>Seat:</strong> {seatNumber}
+                                <strong>Sedadlo:</strong> {seatNumber}
                             </p>
                             {ticketTypeId && (
                                 <p>
-                                    <strong>Type:</strong> {name}
+                                    <strong>Typ:</strong> {name}
                                 </p>
                             )}
                             {price !== undefined && (
                                 <p>
-                                    <strong>Price:</strong> {price} CZK
+                                    <strong>Cena:</strong> {price} CZK
                                 </p>
                             )}
                         </div>
