@@ -97,7 +97,7 @@ const Checkout = () => {
                     {user ? "Zkontrolujte své údaje a dokončete nákup." : "Vyplňte své údaje pro dokončení nákupu."}
                 </p>
 
-                {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+                {error && <p className="text-red-500 text-sm text-center">Nepodařilo se dokončit nákup. Zkuste to prosím ještě jednou</p>}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <h3 className="text-lg font-semibold text-gray-900 mt-4">Seznam lístků</h3>
