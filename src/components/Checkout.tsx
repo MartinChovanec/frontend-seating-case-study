@@ -21,7 +21,6 @@ const Checkout = () => {
             const parsedUser = JSON.parse(storedUser);
             setUser(parsedUser);
 
-            // 🟢 Pokud má uživatel hodnoty, nastavíme je do formuláře
             setForm({
                 firstName: parsedUser.firstName || "",
                 lastName: parsedUser.lastName || "",

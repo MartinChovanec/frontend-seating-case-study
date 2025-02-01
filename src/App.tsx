@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import "./App.css";
 import { getEvent } from "@/components/hooks/GetEvent";
-import { getSeats } from "./components/hooks/getSeats";
+import { getSeats } from "@/components/hooks/GetSeats";
 import { useCart } from "@/components/context/CartContext";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Routes, Route, useNavigate } from "react-router-dom";
@@ -98,19 +98,20 @@ function App() {
                         {/* main body (wrapper) */}
                         <main className="grow flex flex-col justify-center">
                             {/* inner content */}
-                            <div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full">
+                            <div className="max-w-screen-lg m-auto p-4 flex flex-col-reverse xl:flex-row items-start gap-3 w-full">
                                 {/* seating card */}
-                                <div className="bg-white rounded-md grow p-3 self-stretch shadow-sm">
+                                <div className="bg-white rounded-md w-full xl:max-w-[calc(100%-340px)] p-3 shadow-sm">
+                                    <h2 className="text-xl font-semibold mb-4 text-zinc-900">Vyberte si sedadla</h2>
                                     {seatsLoading && <p>Loading seats...</p>}
                                     {seatsError && <p className="text-red-500">{seatsError}</p>}
                                     {!seatsLoading &&
                                         seats &&
                                         seats.seatRows.map((row) => (
-                                            <div key={row.seatRow} className="mb-4">
+                                            <div key={row.seatRow} className="mb-4 last:mb-0">
                                                 <h3 className="text-left text-xs font-medium text-zinc-600 mb-2">
                                                     Row {row.seatRow}
                                                 </h3>
-                                                <div className="flex gap-2">
+                                                <div className="flex gap-2 overflow-x-auto">
                                                     {row.seats.map((seat) => {
                                                         const ticketType = seats.ticketTypes.find(
                                                             (type) => type.id === seat.ticketTypeId
@@ -138,7 +139,7 @@ function App() {
                                 </div>
 
                                 {/* event info */}
-                                <aside className="w-full max-w-sm bg-white rounded-md shadow-sm p-3 flex flex-col gap-2">
+                                <aside className="w-full xl:w-80 bg-white rounded-md shadow-sm p-3 flex flex-col gap-2 mb-4 xl:mb-0">
                                     {loading && <p>Loading event details...</p>}
                                     {error && <p className="text-red-500">{error}</p>}
                                     {event && (
