@@ -42,14 +42,6 @@ const OrderConfirmation = () => {
                     </>
                 ) : (
                     <>
-                        {/* Přidaný obrázek */}
-                        {order?.eventImage && (
-                            <img
-                                src={order.eventImage}
-                                alt="Event"
-                                className="rounded-md h-32 w-full object-cover mb-4"
-                            />
-                        )}
 
                         <p className="text-lg font-semibold text-center text-gray-900 mb-4">Děkujeme za nákup! 🎉</p>
 
