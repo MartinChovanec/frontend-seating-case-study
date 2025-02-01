@@ -152,7 +152,7 @@ const Checkout = () => {
                     </div>
 
                     <div className="flex justify-between mt-4">
-                        <Button variant="secondary" onClick={() => navigate("/")}>
+                        <Button type="button" variant="secondary" onClick={() => navigate("/")}>
                             Zpět
                         </Button>
                         <Button type="submit" variant="default" disabled={loading}>
