@@ -12,7 +12,7 @@ interface SeatingCardProps {
 export const SeatingMap: React.FC<SeatingCardProps> = ({ seatsLoading, seatsError, seats }) => {
     return (
         <div className="bg-white rounded-md w-full xl:max-w-[calc(100%-340px)] p-3 shadow-sm">
-            <h2 className="text-xl font-semibold mb-4 text-zinc-900">Vyberte si sedadla</h2>
+            <h2 className="text-xl font-semibold mb-4 text-zinc-900">Choose your seats</h2>
             {seatsLoading && <p>Loading seats...</p>}
             {seatsError && <p className="text-red-500">{seatsError}</p>}
             {!seatsLoading &&

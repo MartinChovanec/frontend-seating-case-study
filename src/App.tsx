@@ -14,8 +14,6 @@ import { EventInfoPanel } from "@/components/EventInfoPanel";
 import { Header } from "./components/Header";
 import { UserData } from "./types/types";
 
-
-
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -41,8 +39,8 @@ function App() {
                 element={
                     <div className="flex flex-col grow">
                         {/* header (wrapper) */}
-                        
-                        <Header user={user} isLoggedIn={isLoggedIn}/>
+
+                        <Header user={user} isLoggedIn={isLoggedIn} />
                         {/* main body (wrapper) */}
                         <main className="grow flex flex-col justify-center">
                             {/* inner content */}
@@ -79,13 +77,13 @@ function App() {
                         <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle className="text-gray-600">Máte u nás účet?</DialogTitle>
+                                    <DialogTitle className="text-gray-600">Are you registered?</DialogTitle>
                                 </DialogHeader>
                                 <div className="flex flex-col gap-4">
                                     {!isLoggedIn ? (
                                         <>
                                             <p className="text-sm text-gray-900">
-                                                Přihlašte se do svého účtu, nebo pokračujte jako host.
+                                                Sign in to your account or continue as a guest.
                                             </p>
                                             <Button
                                                 variant="default"
@@ -94,7 +92,7 @@ function App() {
                                                     setIsLoginOpen(true); // Otevřít login modal
                                                 }}
                                             >
-                                                Přihlásit se
+                                                Sign in
                                             </Button>
                                             <Button
                                                 variant="secondary"
@@ -103,7 +101,7 @@ function App() {
                                                     navigate("/checkout"); // Přesměruj na checkout stránku
                                                 }}
                                             >
-                                                Pokračovat jako host
+                                                Continue as a guest
                                             </Button>
                                         </>
                                     ) : (
@@ -113,10 +111,14 @@ function App() {
                             </DialogContent>
                         </Dialog>
                         {/* Login Modal */}
-                        <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onSuccess={(userData) => {
-                setIsLoggedIn(true);
-                setUser(userData);
-              }} />
+                        <LoginModal
+                            isOpen={isLoginOpen}
+                            onClose={() => setIsLoginOpen(false)}
+                            onSuccess={(userData) => {
+                                setIsLoggedIn(true);
+                                setUser(userData);
+                            }}
+                        />
                     </div>
                 }
             ></Route>

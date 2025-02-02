@@ -91,32 +91,36 @@ const Checkout = () => {
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-50 p-6">
             <div className="bg-white shadow-md rounded-md p-6 max-w-lg w-full">
-                <h1 className="text-2xl font-semibold text-center text-gray-900 mb-4">Shrnutí</h1>
+                <h1 className="text-2xl font-semibold text-center text-gray-900 mb-4">Summary</h1>
                 <p className="text-sm text-gray-500 text-center mb-6">
                     {user ? "Zkontrolujte své údaje a dokončete nákup." : "Vyplňte své údaje pro dokončení nákupu."}
                 </p>
 
-                {error && <p className="text-red-500 text-sm text-center">Nepodařilo se dokončit nákup. Zkuste to prosím ještě jednou</p>}
+                {error && (
+                    <p className="text-red-500 text-sm text-center">
+                        Failed to complete the purchase. Please try again
+                    </p>
+                )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <h3 className="text-lg font-semibold text-gray-900 mt-4">Seznam lístků</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mt-4">List of tickets</h3>
                     {cart.length === 0 ? (
-                        <p className="text-gray-500 text-sm text-center">V košíku nejsou žádné lístky.</p>
+                        <p className="text-gray-500 text-sm text-center">There are no tickets in the cart.</p>
                     ) : (
                         cart.map((item, index) => (
                             <div key={index} className="border-b py-2 text-zinc-500">
                                 <p>
-                                    <strong>Řada:</strong> {item.row}, <strong>Sedadlo:</strong> {item.place}
+                                    <strong>Row:</strong> {item.row}, <strong>Sedadlo:</strong> {item.place}
                                 </p>
                                 <p>
-                                    <strong>Cena:</strong> {item.price} CZK
+                                    <strong>Price:</strong> {item.price} CZK
                                 </p>
                             </div>
                         ))
                     )}
                     {/* Formulář pro hosta nebo možnost upravit informace pro přihlášeného uživatele */}
                     <div>
-                        <label className="text-sm font-medium text-gray-700">Jméno</label>
+                        <label className="text-sm font-medium text-gray-700">Name</label>
                         <input
                             type="text"
                             name="firstName"
@@ -128,7 +132,7 @@ const Checkout = () => {
                     </div>
 
                     <div>
-                        <label className="text-sm font-medium text-gray-700">Příjmení</label>
+                        <label className="text-sm font-medium text-gray-700">Surname</label>
                         <input
                             type="text"
                             name="lastName"
@@ -153,10 +157,10 @@ const Checkout = () => {
 
                     <div className="flex justify-between mt-4">
                         <Button type="button" variant="secondary" onClick={() => navigate("/")}>
-                            Zpět
+                            Go back
                         </Button>
                         <Button type="submit" variant="default" disabled={loading}>
-                            {loading ? "Odesílání..." : "Dokončit nákup"}
+                            {loading ? "Sending..." : "Complete order"}
                         </Button>
                     </div>
                 </form>
