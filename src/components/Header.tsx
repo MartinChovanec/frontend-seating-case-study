@@ -9,18 +9,20 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import { UserData } from "@/types/types";
+import { CartItem, UserData } from "@/types/types";
+
 
 
 
 interface HeaderProps {
     user: UserData | null;
+    setIsLoginOpen: (open: boolean) => void;
     isLoggedIn : boolean;
 }
 
 
+export const Header = ({ user, setIsLoginOpen, isLoggedIn }: HeaderProps) => {
 
-export const Header = ({ user, isLoggedIn }: HeaderProps) => {
     return (
 <nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center">
                             {/* inner content */}
@@ -63,8 +65,10 @@ export const Header = ({ user, isLoggedIn }: HeaderProps) => {
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     ) : (
-                                        <Button disabled variant="secondary">
-                                            Login or register
+                                        <Button variant="secondary" onClick={() => {
+                                            setIsLoginOpen(true); // Otevřít login modal
+                                        }}>
+                                            Login
                                         </Button>
                                     )}
                                 </div>
