@@ -6,7 +6,7 @@ interface FooterProps {
     onCheckout: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({cart, onCheckout}) => {
+export const Footer = ({ cart, onCheckout }: FooterProps) => {
     return (
         <nav className="sticky bottom-0 left-0 right-0 bg-white border-t border-zinc-200 flex justify-center">
             {/* inner content */}

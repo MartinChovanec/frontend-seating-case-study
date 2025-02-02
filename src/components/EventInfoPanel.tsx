@@ -7,7 +7,7 @@ interface EventInfoProps {
     error: string | null;
 }
 
-export const EventInfoPanel: React.FC<EventInfoProps> = ({ event, loading, error }) => {
+export const EventInfoPanel = ({ event, loading, error }: EventInfoProps) => {
     return (
         <aside className="w-full xl:w-80 bg-white rounded-md shadow-sm p-3 flex flex-col gap-2 mb-4 xl:mb-0">
             {loading && <p>Loading event details...</p>}

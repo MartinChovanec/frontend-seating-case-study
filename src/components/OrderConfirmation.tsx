@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const OrderConfirmation = () => {
+export const OrderConfirmation = () => {
     const [order, setOrder] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();

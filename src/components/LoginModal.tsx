@@ -9,7 +9,7 @@ interface LoginModalProps {
     onSuccess: (user: { email: string; firstName: string; lastName: string }) => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) => {
+export const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
     const navigate = useNavigate(); // Použití navigate
     const [loginData, setLoginData] = useState({ email: "", password: "" });
     const [loginError, setLoginError] = useState<string | null>(null);

@@ -9,7 +9,7 @@ interface CheckoutDialogProps {
     navigate: (path: string) => void;
 }
 
-export function CheckoutDialog({ open, setIsCheckoutOpen, isLoggedIn, setIsLoginOpen, navigate }: CheckoutDialogProps) {
+export const CheckoutDialog = ({ open, setIsCheckoutOpen, isLoggedIn, setIsLoginOpen, navigate }: CheckoutDialogProps) => {
     return (
         <Dialog open={open} onOpenChange={setIsCheckoutOpen}>
             <DialogContent>

@@ -20,7 +20,7 @@ interface HeaderProps {
 
 
 
-export const Header: React.FC<HeaderProps> = ({user, isLoggedIn}) => {
+export const Header = ({ user, isLoggedIn }: HeaderProps) => {
     return (
 <nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center">
                             {/* inner content */}

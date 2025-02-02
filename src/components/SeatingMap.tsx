@@ -1,5 +1,4 @@
 // SeatingCard.tsx
-import React from "react";
 import { Seat } from "@/components/Seat";
 import { SeatData } from "@/types/types";
 
@@ -9,7 +8,7 @@ interface SeatingCardProps {
     seats: SeatData | null;
 }
 
-export const SeatingMap: React.FC<SeatingCardProps> = ({ seatsLoading, seatsError, seats }) => {
+export const SeatingMap = ({ seatsLoading, seatsError, seats }: SeatingCardProps) => {
     return (
         <div className="bg-white rounded-md w-full xl:max-w-[calc(100%-340px)] p-3 shadow-sm">
             <h2 className="text-xl font-semibold mb-4 text-zinc-900">Choose your seats</h2>
