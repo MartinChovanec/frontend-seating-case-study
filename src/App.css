@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media (max-width: 1279px) and (min-width: 300px) {
+    .custom-object-position {
+        object-position: 50% 85%;
+    }
+}
