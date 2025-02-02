@@ -23,7 +23,7 @@ import { SeatingMap } from "@/components/SeatingMap";
 import { EventInfoPanel } from "@/components/EventInfoPanel";
 
 function App() {
-    const isLoggedIn = false;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const { event, loading, error } = getEvent();
 
@@ -37,6 +37,8 @@ function App() {
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
     const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+    //const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     return (
         <Routes>
@@ -165,7 +167,7 @@ function App() {
                             </DialogContent>
                         </Dialog>
                         {/* Login Modal */}
-                        <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+                        <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onSuccess={() => setIsLoggedIn(true)} />
                     </div>
                 }
             ></Route>

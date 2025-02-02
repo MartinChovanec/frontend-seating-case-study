@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom"; // Import navigate
 interface LoginModalProps {
     isOpen: boolean;
     onClose: () => void;
+    onSuccess: () => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) => {
     const navigate = useNavigate(); // Použití navigate
     const [loginData, setLoginData] = useState({ email: "", password: "" });
     const [loginError, setLoginError] = useState<string | null>(null);
@@ -43,8 +44,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
                     lastName: data.user.lastName,
                 })
             );
-
             onClose(); // Zavřít modal
+            onSuccess();
             navigate("/checkout"); // Přesměrovat na checkout
         } catch (error: any) {
             setLoginError(error.message || "Login failed");

@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
 import { SeatData } from "@/types/types";
-import { SeatRow } from "@/types/types";
-
-
-
-
-
 
 
 export const getSeats = (eventId: string) => {
