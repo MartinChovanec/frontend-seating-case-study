@@ -19,7 +19,7 @@ export interface SeatRow {
 export interface SeatData {
     ticketTypes: TicketType[];
     seatRows: SeatRow[];
-}/*
+}
 
 
 export interface EventData {
@@ -31,8 +31,7 @@ export interface EventData {
     dateTo: string;
     headerImageUrl: string;
     place: string;
-}
-
+}/*
 export interface CartItem {
     seatId: string;
     row: number;

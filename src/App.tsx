@@ -20,6 +20,8 @@ import Checkout from "@/components/Checkout";
 import LoginModal from "@/components/LoginModal";
 import OrderConfirmation from "@/components/OrderConfirmation";
 import { SeatingMap } from "@/components/SeatingMap";
+import { EventInfoPanel } from "@/components/EventInfoPanel";
+
 function App() {
     const isLoggedIn = false;
 
@@ -97,42 +99,8 @@ function App() {
                         <main className="grow flex flex-col justify-center">
                             {/* inner content */}
                             <div className="max-w-screen-lg m-auto p-4 flex flex-col-reverse xl:flex-row items-start gap-3 w-full">
-                                {/* seating card */}
                                 <SeatingMap seatsLoading={seatsLoading} seatsError={seatsError} seats={seats} />
-
-                                {/* event info */}
-                                <aside className="w-full xl:w-80 bg-white rounded-md shadow-sm p-3 flex flex-col gap-2 mb-4 xl:mb-0">
-                                    {loading && <p>Loading event details...</p>}
-                                    {error && <p className="text-red-500">{error}</p>}
-                                    {event && (
-                                        <>
-                                            {/* event header image placeholder 
-						<div className="bg-zinc-100 rounded-md h-32" />*/}
-                                            <img
-                                                src={event.headerImageUrl}
-                                                alt={event.namePub}
-                                                className="rounded-md h-32 object-cover"
-                                            />
-                                            {/* event name */}
-                                            <h1 className="text-xl text-zinc-900 font-semibold">{event.namePub}</h1>
-                                            {/* event description */}
-                                            <p className="text-sm text-zinc-500">{event.description}</p>
-                                            <p className="text-sm text-zinc-400">
-                                                <strong>Místo:</strong> {event.place}
-                                            </p>
-                                            <p className="text-sm text-zinc-400">
-                                                <strong>Od:</strong> {new Date(event.dateFrom).toLocaleString()}
-                                            </p>
-                                            <p className="text-sm text-zinc-400">
-                                                <strong>Do:</strong> {new Date(event.dateTo).toLocaleString()}
-                                            </p>
-                                            {/* add to calendar button */}
-                                            <Button variant="secondary" disabled>
-                                                Add to calendar
-                                            </Button>
-                                        </>
-                                    )}
-                                </aside>
+                                <EventInfoPanel event={event} loading={loading} error={error} />
                             </div>
                         </main>
 
