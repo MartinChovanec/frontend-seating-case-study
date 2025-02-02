@@ -39,6 +39,8 @@ function App() {
         }
     }, [isCheckoutOpen, isLoggedIn, navigate]);
 
+    console.log(user)
+
     return (
         <Routes>
             {/* Hlavní stránka aplikace */}
@@ -50,8 +52,10 @@ function App() {
                         <Header 
                             user={user} 
                             setIsLoginOpen={setIsLoginOpen} 
+                            setIsLoggedIn={setIsLoggedIn}
                             isLoggedIn={isLoggedIn}
                             event={event}
+                            setUser={setUser}
                         />
                         {/* main body (wrapper) */}
                         <main className="grow flex flex-col justify-center">

@@ -14,11 +14,13 @@ import { UserData, EventData } from "@/types/types";
 interface HeaderProps {
     user: UserData | null;
     setIsLoginOpen: (open: boolean) => void;
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
     isLoggedIn: boolean;
     event: EventData | null;
+    setUser: (userData: null) => void;
 }
 
-export const Header = ({ user, setIsLoginOpen, isLoggedIn, event }: HeaderProps) => {
+export const Header = ({ user, setIsLoginOpen, setIsLoggedIn, isLoggedIn, event, setUser }: HeaderProps) => {
     return (
         <nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center">
             {/* inner content */}
@@ -29,9 +31,9 @@ export const Header = ({ user, setIsLoginOpen, isLoggedIn, event }: HeaderProps)
                 </div>
                 {/* app/author title/name placeholder */}
                 <h1 className="text-zinc-900 flex-1 text-center md:text-left truncate max-w-[200px] md:max-w-none">
-                    {event?.namePub || 'Loading event...'}
+                    {event?.namePub || "Loading event..."}
                 </h1>
-                
+
                 {/* user menu */}
                 <div className="max-w-[250px] w-full flex justify-end">
                     {isLoggedIn && user ? (
@@ -63,7 +65,14 @@ export const Header = ({ user, setIsLoginOpen, isLoggedIn, event }: HeaderProps)
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup>
-                                    <DropdownMenuItem disabled>Logout</DropdownMenuItem>
+                                    <DropdownMenuItem
+                                        onClick={() => {
+                                            setUser(null);
+                                            setIsLoggedIn(false);
+                                        }}
+                                    >
+                                        Logout
+                                    </DropdownMenuItem>
                                 </DropdownMenuGroup>
                             </DropdownMenuContent>
                         </DropdownMenu>
