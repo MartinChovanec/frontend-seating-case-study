@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import { CartItem, UserData } from "@/types/types";
+import { UserData } from "@/types/types";
 
 
 
