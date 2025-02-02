@@ -22,8 +22,15 @@ import OrderConfirmation from "@/components/OrderConfirmation";
 import { SeatingMap } from "@/components/SeatingMap";
 import { EventInfoPanel } from "@/components/EventInfoPanel";
 
+interface UserData {
+    email: string;
+    firstName: string;
+    lastName: string;
+  }
+
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState<UserData | null>(null);
 
     const { event, loading, error } = getEvent();
 
@@ -37,8 +44,6 @@ function App() {
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
     const [isLoginOpen, setIsLoginOpen] = useState(false);
-
-    //const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     return (
         <Routes>
@@ -59,7 +64,7 @@ function App() {
                                 <div className="bg-zinc-100 rounded-md h-8 w-[200px]" />
                                 {/* user menu */}
                                 <div className="max-w-[250px] w-full flex justify-end">
-                                    {isLoggedIn ? (
+                                    {isLoggedIn && user ? (
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
                                                 <Button variant="ghost">
@@ -68,20 +73,20 @@ function App() {
                                                             <AvatarImage
                                                                 src={`https://source.boringavatars.com/marble/120/<user-email>?colors=25106C,7F46DB`}
                                                             />
-                                                            <AvatarFallback>CN</AvatarFallback>
+                                                            <AvatarFallback>{user.firstName[0]} {user.lastName[0]}</AvatarFallback>
                                                         </Avatar>
 
                                                         <div className="flex flex-col text-left">
-                                                            <span className="text-sm font-medium">John Doe</span>
+                                                            <span className="text-sm font-medium">{user.firstName} {user.lastName}</span>
                                                             <span className="text-xs text-zinc-500">
-                                                                john.doe@nfctron.com
+                                                            {user.email}
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent className="w-[250px]">
-                                                <DropdownMenuLabel>John Doe</DropdownMenuLabel>
+                                                <DropdownMenuLabel>{user.firstName} {user.lastName}</DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
                                                 <DropdownMenuGroup>
                                                     <DropdownMenuItem disabled>Logout</DropdownMenuItem>
@@ -167,7 +172,10 @@ function App() {
                             </DialogContent>
                         </Dialog>
                         {/* Login Modal */}
-                        <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onSuccess={() => setIsLoggedIn(true)} />
+                        <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onSuccess={(userData) => {
+                setIsLoggedIn(true);
+                setUser(userData);
+              }} />
                     </div>
                 }
             ></Route>
