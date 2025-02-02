@@ -45,9 +45,8 @@ function App() {
             <Route
                 path="/"
                 element={
-                    <div className="flex flex-col grow">
+                    <div className="flex flex-col grow bg-zinc-100">
                         {/* header (wrapper) */}
-
                         <Header 
                             user={user} 
                             setIsLoginOpen={setIsLoginOpen} 
