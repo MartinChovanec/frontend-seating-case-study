@@ -48,7 +48,12 @@ function App() {
                     <div className="flex flex-col grow">
                         {/* header (wrapper) */}
 
-                        <Header user={user} setIsLoginOpen={setIsLoginOpen} isLoggedIn={isLoggedIn} />
+                        <Header 
+                            user={user} 
+                            setIsLoginOpen={setIsLoginOpen} 
+                            isLoggedIn={isLoggedIn}
+                            event={event}
+                        />
                         {/* main body (wrapper) */}
                         <main className="grow flex flex-col justify-center">
                             {/* inner content */}

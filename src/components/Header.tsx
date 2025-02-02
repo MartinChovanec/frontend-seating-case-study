@@ -9,15 +9,16 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import { UserData } from "@/types/types";
+import { UserData, EventData } from "@/types/types";
 
 interface HeaderProps {
     user: UserData | null;
     setIsLoginOpen: (open: boolean) => void;
     isLoggedIn: boolean;
+    event: EventData | null;
 }
 
-export const Header = ({ user, setIsLoginOpen, isLoggedIn }: HeaderProps) => {
+export const Header = ({ user, setIsLoginOpen, isLoggedIn, event }: HeaderProps) => {
     return (
         <nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center">
             {/* inner content */}
@@ -27,7 +28,8 @@ export const Header = ({ user, setIsLoginOpen, isLoggedIn }: HeaderProps) => {
                     <div className="bg-zinc-100 rounded-md size-12" />
                 </div>
                 {/* app/author title/name placeholder */}
-                <div className="bg-zinc-100 rounded-md h-8 w-[200px]" />
+                <h1 className=" rounded-md h-8 w-[200px] text-zinc-900 flex-1 text-center md:text-left">{event?.namePub || 'Loading event...'}</h1>
+                
                 {/* user menu */}
                 <div className="max-w-[250px] w-full flex justify-end">
                     {isLoggedIn && user ? (
