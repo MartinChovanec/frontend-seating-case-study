@@ -31,15 +31,15 @@ export interface EventData {
     dateTo: string;
     headerImageUrl: string;
     place: string;
-}/*
+}
+
 export interface CartItem {
     seatId: string;
     row: number;
     place: number;
     price?: number;
-    ticketType?: string;
+    ticketTypeId?: string;
 }
-*/
 export interface UserData {
     email: string;
     firstName: string;

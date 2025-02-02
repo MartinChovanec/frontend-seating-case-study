@@ -1,12 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
+import { CartItem } from "@/types/types";
 
-interface CartItem {
-    seatId: string;
-    row: number;
-    place: number;
-    ticketTypeId?: string;
-    price?: number;
-}
 
 interface CartContextProps {
     cart: CartItem[];
