@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button.tsx";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.tsx";
 import { cn } from "@/lib/utils.ts";
 import React from "react";
-import { useCart } from "@/components/context/CartContext";
 import { useState } from "react";
+import { useCart } from "@/components/context/CartContext";
 
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     "data-number"?: number; // Seat number
@@ -27,9 +27,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
     } = props;
 
     const isUnavailable = seatInfo === "Nedostupné";
-
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-
     const { addToCart, removeFromCart, isInCart } = useCart();
     const inCart = isInCart(seatId || "");
 
@@ -46,13 +44,14 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
             });
         }
     };
+
     const seatClass = isUnavailable
         ? "bg-gray-400 opacity-60"
         : inCart
-        ? "bg-blue-600 text-white"
+        ? "bg-green-600" // zelená barva pro sedadlo, které je v košíku
         : name === "VIP ticket"
-        ? "bg-yellow-500"
-        : "bg-green-600";
+        ? "bg-amber-400 hover:bg-amber-500"
+        : "bg-blue-500 hover:bg-blue-600";
 
     return (
         <div>
@@ -80,7 +79,13 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                             ref={ref}
                             onClick={handleClick}
                         >
-                            <span className="text-xs font-medium">{seatNumber}</span>
+                            {inCart ? (
+                                // Pokud je sedadlo v košíku, zobraz zelený checkmark
+                                <span className="text-white font-bold">&#10003;</span>
+                            ) : (
+                                // Jinak zobraz číslo sedadla
+                                <span className="text-xs font-medium">{seatNumber}</span>
+                            )}
                         </div>
                     </PopoverTrigger>
                     <PopoverContent
