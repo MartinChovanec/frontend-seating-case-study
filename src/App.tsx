@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Seat } from "@/components/Seat.tsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import {
@@ -20,7 +19,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Checkout from "@/components/Checkout";
 import LoginModal from "@/components/LoginModal";
 import OrderConfirmation from "@/components/OrderConfirmation";
-
+import { SeatingMap } from "@/components/SeatingMap";
 function App() {
     const isLoggedIn = false;
 
@@ -36,7 +35,6 @@ function App() {
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
     const [isLoginOpen, setIsLoginOpen] = useState(false);
-
 
     return (
         <Routes>
@@ -100,43 +98,7 @@ function App() {
                             {/* inner content */}
                             <div className="max-w-screen-lg m-auto p-4 flex flex-col-reverse xl:flex-row items-start gap-3 w-full">
                                 {/* seating card */}
-                                <div className="bg-white rounded-md w-full xl:max-w-[calc(100%-340px)] p-3 shadow-sm">
-                                    <h2 className="text-xl font-semibold mb-4 text-zinc-900">Vyberte si sedadla</h2>
-                                    {seatsLoading && <p>Loading seats...</p>}
-                                    {seatsError && <p className="text-red-500">{seatsError}</p>}
-                                    {!seatsLoading &&
-                                        seats &&
-                                        seats.seatRows.map((row) => (
-                                            <div key={row.seatRow} className="mb-4 last:mb-0">
-                                                <h3 className="text-left text-xs font-medium text-zinc-600 mb-2">
-                                                    Row {row.seatRow}
-                                                </h3>
-                                                <div className="flex gap-2 overflow-x-auto">
-                                                    {row.seats.map((seat) => {
-                                                        const ticketType = seats.ticketTypes.find(
-                                                            (type) => type.id === seat.ticketTypeId
-                                                        );
-                                                        return (
-                                                            <Seat
-                                                                key={seat.seatId}
-                                                                data-number={
-                                                                    seat.information !== "Nedostupné"
-                                                                        ? seat.place
-                                                                        : undefined
-                                                                }
-                                                                data-information={seat.information}
-                                                                data-ticket-type={ticketType?.id}
-                                                                data-ticket-name={ticketType?.name}
-                                                                data-price={ticketType?.price}
-                                                                data-row={row.seatRow}
-                                                                data-seat-id={seat.seatId}
-                                                            />
-                                                        );
-                                                    })}
-                                                </div>
-                                            </div>
-                                        ))}
-                                </div>
+                                <SeatingMap seatsLoading={seatsLoading} seatsError={seatsError} seats={seats} />
 
                                 {/* event info */}
                                 <aside className="w-full xl:w-80 bg-white rounded-md shadow-sm p-3 flex flex-col gap-2 mb-4 xl:mb-0">
@@ -234,12 +196,12 @@ function App() {
                                 </div>
                             </DialogContent>
                         </Dialog>
-						{/* Login Modal */}
+                        {/* Login Modal */}
                         <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
                     </div>
                 }
             ></Route>
-			<Route path="/order-confirmation" element={<OrderConfirmation />} />
+            <Route path="/order-confirmation" element={<OrderConfirmation />} />
             <Route path="/checkout" element={<Checkout />} />
         </Routes>
     );

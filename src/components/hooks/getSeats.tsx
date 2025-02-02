@@ -1,27 +1,12 @@
 import { useEffect, useState } from "react";
+import { SeatData } from "@/types/types";
+import { SeatRow } from "@/types/types";
 
-interface TicketType {
-    id: string;
-    name: string;
-    price: number;
-}
 
-interface Seat {
-    seatId: string;
-    place: number;
-    ticketTypeId?: string; // Optional for placeholder seats
-    information?: string; // Optional field for placeholder seats
-}
 
-interface SeatRow {
-    seatRow: number;
-    seats: Seat[];
-}
 
-interface SeatData {
-    ticketTypes: TicketType[];
-    seatRows: SeatRow[];
-}
+
+
 
 export const getSeats = (eventId: string) => {
     const [seats, setSeats] = useState<SeatData | null>(null);
