@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { SeatData } from "@/types/types";
 
-
 export const getSeats = (eventId: string) => {
     const [seats, setSeats] = useState<SeatData | null>(null);
     const [loading, setLoading] = useState<boolean>(true);

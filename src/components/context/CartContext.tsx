@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { CartItem } from "@/types/types";
 
-
 interface CartContextProps {
     cart: CartItem[];
     addToCart: (item: CartItem) => void;

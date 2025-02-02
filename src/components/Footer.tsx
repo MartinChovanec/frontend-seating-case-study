@@ -2,7 +2,7 @@ import { Button } from "./ui/button";
 import { CartItem } from "@/types/types";
 
 interface FooterProps {
-    cart: CartItem[]
+    cart: CartItem[];
     onCheckout: () => void;
 }
 

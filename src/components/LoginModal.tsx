@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { useCart } from "@/components/context/CartContext";
 
 interface LoginModalProps {
@@ -10,9 +10,9 @@ interface LoginModalProps {
     onSuccess: (user: { email: string; firstName: string; lastName: string }) => void;
 }
 
-export const LoginModal = ({ isOpen, onClose, onSuccess, }: LoginModalProps) => {
+export const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
     const navigate = useNavigate(); // Použití navigate
-    const { cart } = useCart();  // Získáme stav košíku
+    const { cart } = useCart(); // Získáme stav košíku
     const [loginData, setLoginData] = useState({ email: "", password: "" });
     const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -51,7 +51,7 @@ export const LoginModal = ({ isOpen, onClose, onSuccess, }: LoginModalProps) => 
                 email: data.user.email,
                 firstName: data.user.firstName,
                 lastName: data.user.lastName,
-              });
+            });
 
             // Přesměrování na základě stavu košíku
             if (cart.length > 0) {

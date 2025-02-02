@@ -14,11 +14,7 @@ export const EventInfoPanel = ({ event, loading, error }: EventInfoProps) => {
             {error && <p className="text-red-500">{error}</p>}
             {event && (
                 <>
-                    <img
-                        src={event.headerImageUrl}
-                        alt={event.namePub}
-                        className="rounded-md h-32 object-cover"
-                    />
+                    <img src={event.headerImageUrl} alt={event.namePub} className="rounded-md h-32 object-cover" />
                     <h1 className="text-xl text-zinc-900 font-semibold">{event.namePub}</h1>
                     <p className="text-sm text-zinc-500">{event.description}</p>
                     <p className="text-sm text-zinc-400">
@@ -37,4 +33,4 @@ export const EventInfoPanel = ({ event, loading, error }: EventInfoProps) => {
             )}
         </aside>
     );
-}; 
+};
