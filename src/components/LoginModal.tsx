@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "@/components/context/CartContext";
+import { useCart } from "@/context/CartContext";
 
 interface LoginModalProps {
     isOpen: boolean;

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getEvent } from "@/components/hooks/GetEvent";
-import { getSeats } from "@/components/hooks/GetSeats";
-import { useCart } from "@/components/context/CartContext";
+import { getEvent } from "@/services/GetEvent";
+import { getSeats } from "@/services/GetSeats";
+import { useCart } from "@/context/CartContext";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Checkout from "@/components/Checkout";
 import LoginModal from "@/components/LoginModal";

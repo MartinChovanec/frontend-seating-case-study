@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useCart } from "@/components/context/CartContext";
-import { getEvent } from "@/components/hooks/GetEvent";
+import { useCart } from "@/context/CartContext";
+import { getEvent } from "@/services/GetEvent";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 

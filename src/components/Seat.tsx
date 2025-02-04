@@ -3,7 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { cn } from "@/lib/utils.ts";
 import React from "react";
 import { useState } from "react";
-import { useCart } from "@/components/context/CartContext";
+import { useCart } from "@/context/CartContext";
 
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     "data-number"?: number; // Seat number
