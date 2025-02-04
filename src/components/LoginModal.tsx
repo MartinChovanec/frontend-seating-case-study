@@ -10,7 +10,21 @@ interface LoginModalProps {
     onSuccess: (user: { email: string; firstName: string; lastName: string }) => void;
 }
 
-// fetch, which handles user login to the system. Use this API(method:POST) https://nfctron-frontend-seating-case-study-2024.vercel.app/login
+/**
+ * LoginModal Component
+ *
+ * Handles user authentication using a login modal.
+ * Uses the API: `POST https://nfctron-frontend-seating-case-study-2024.vercel.app/login`
+ *
+ * - Takes user credentials (email & password)
+ * - Sends a login request to the API
+ * - If successful:
+ *   - Stores user data in `localStorage`
+ *   - Calls `onSuccess` with user details
+ *   - Closes the modal
+ *   - Redirects user to `/checkout` if there are items in the cart, otherwise to `/`
+ *
+ */
 
 export const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
     const navigate = useNavigate(); 

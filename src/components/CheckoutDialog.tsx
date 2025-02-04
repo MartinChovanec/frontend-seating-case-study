@@ -9,7 +9,13 @@ interface CheckoutDialogProps {
     navigate: (path: string) => void;
 }
 
-//Modal, which will be displayed after checkout. The user can choose whether to log in or continue as a guest
+/**
+ * CheckoutDialog Component
+ * 
+ * Displays a modal after checkout, allowing the user to either log in or continue as a guest.
+ *
+ */
+
 
 export const CheckoutDialog = ({
     open,

@@ -4,7 +4,20 @@ import { getEvent } from "@/components/hooks/GetEvent";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-// Sends an order. Use this API (Method:POST) https://nfctron-frontend-seating-case-study-2024.vercel.app/order 
+/**
+ * Checkout Component
+ * 
+ * Handles the order process, including:
+ * - Fetching event details
+ * - Retrieving cart items
+ * - Managing form inputs for user details
+ * - Sending an order to the API
+ * - Handling errors and loading states
+ *
+ * API Used:
+ * - `POST https://nfctron-frontend-seating-case-study-2024.vercel.app/order` (Sends order)
+ *
+ */
 
 const Checkout = () => {
     const navigate = useNavigate();
@@ -16,7 +29,10 @@ const Checkout = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // is user logged in?
+    /**
+     * Loads user data from localStorage (if available).
+     * Pre-fills the form with stored user details.
+     */
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
@@ -31,10 +47,14 @@ const Checkout = () => {
         }
     }, []);
 
+    // Handles form field changes.
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    // Handles form submission, sends order to API.
+    
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);

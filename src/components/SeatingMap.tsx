@@ -7,7 +7,14 @@ interface SeatingCardProps {
     seatsError: string | null;
     seats: SeatData | null;
 }
-// Generates seat map
+/**
+ * SeatingMap Component
+ *
+ * Generates a seat map where users can select available seats.
+ * - Displays loading and error messages as needed.
+ * - Maps through seat rows and renders each seat with corresponding data.
+ * - Uses the `Seat` component for individual seats.
+ */
 export const SeatingMap = ({ seatsLoading, seatsError, seats }: SeatingCardProps) => {
     return (
         <div className="bg-white rounded-md w-full xl:max-w-[calc(100%-340px)] p-3 shadow-sm">

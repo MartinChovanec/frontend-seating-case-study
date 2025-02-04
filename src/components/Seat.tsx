@@ -15,6 +15,20 @@ interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     "data-ticket-name"?: string; // Ticket type (e.g., "VIP ticket")
 }
 
+/**
+ * Seat Component
+ *
+ * Represents an interactive seat in a seating chart.
+ *
+ * - **Green:** The seat is in the cart.
+ * - **Gray:** The seat is unavailable.
+ * - **Amber:** VIP seat.
+ * - **Blue:** Regular seat.
+ *
+ * Users can click to add or remove the seat from their cart.
+ *
+ */
+
 export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => {
     const {
         "data-number": seatNumber,
@@ -45,12 +59,14 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
         }
     };
 
-    //There are four seat colours. The seat that is in the cart is marked as green. S
-    // Seats that are unavailable are in grey. Amber colour is for VIP and blue is for regular tickets.
+    /**
+     * Determines the seat's color based on its availability and type.
+     */
+
     const seatClass = isUnavailable
         ? "bg-gray-400 opacity-60"
         : inCart
-        ? "bg-green-600" // zelená barva pro sedadlo, které je v košíku
+        ? "bg-green-600" // Green for seats in the cart
         : name === "VIP ticket"
         ? "bg-amber-400 hover:bg-amber-500"
         : "bg-blue-500 hover:bg-blue-600";

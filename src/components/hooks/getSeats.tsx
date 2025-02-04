@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
 import { SeatData } from "@/types/types";
 
-// Gets ticket Data. Use API (method:GET) https://nfctron-frontend-seating-case-study-2024.vercel.app/event-tickets?eventId=<uuid>
-// Because api returns different numbers of seats in rows.
-// For better clarity we enrich the output with seats (these seats cannot be added to the basket) that api did not return. 
-// This means. We ensure that each row displays the same number of seats.
+/**
+ * Fetches seat data for a given event and enriches the output to ensure each row displays the same number of seats.
+ * The API may return an inconsistent number of seats per row, so missing seats are added as placeholders
+ * (these seats cannot be added to the basket).
+ *
+ * Uses API: `GET https://nfctron-frontend-seating-case-study-2024.vercel.app/event-tickets?eventId=<uuid>`
+ *
+ * @param {string} eventId - The unique ID of the event to fetch seat data for.
+ * @returns {object} An object containing:
+ * - `seats` (SeatData | null): The enriched seat data if available.
+ * - `loading` (boolean): `true` while fetching data, `false` once loaded.
+ * - `error` (string | null): Error message if fetching fails.
+ *
+ * @example
+ * const { seats, loading, error } = getSeats("event-123");
+ */
 
 export const getSeats = (eventId: string) => {
     const [seats, setSeats] = useState<SeatData | null>(null);
@@ -12,6 +24,9 @@ export const getSeats = (eventId: string) => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        /**
+         * Fetches seat data from the API, processes it to fill missing seats, and updates the state.
+         */
         const fetchSeats = async () => {
             try {
                 const response = await fetch(

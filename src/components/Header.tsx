@@ -20,6 +20,18 @@ interface HeaderProps {
     setUser: (userData: null) => void;
 }
 
+/**
+ * Header Component
+ *
+ * Displays:
+ * - The event name from the provided event data
+ * - A user authentication menu with login/logout options
+ *
+ * If the user is logged in, their avatar and details are displayed in a dropdown.
+ * If not, a login button is shown.
+ *
+ */
+
 export const Header = ({ user, setIsLoginOpen, setIsLoggedIn, isLoggedIn, event, setUser }: HeaderProps) => {
     return (
         <nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center">

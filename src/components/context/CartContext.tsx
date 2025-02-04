@@ -9,9 +9,12 @@ interface CartContextProps {
     clearCart: () => void;
 }
 
+// CartContext provides cart state and functions globally.
+
 export const CartContext = createContext<CartContextProps | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CartProvider = ({ children }: { children: React.ReactNode }) => {
+
     const [cart, setCart] = useState<CartItem[]>([]);
 
     const addToCart = (item: CartItem) => {
@@ -36,6 +39,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         </CartContext.Provider>
     );
 };
+
+//Custom hook to access the cart context.Ensures the hook is only used within `CartProvider`.
 
 export const useCart = () => {
     const context = useContext(CartContext);

@@ -6,6 +6,16 @@ interface FooterProps {
     onCheckout: () => void;
 }
 
+/**
+ * Footer Component
+ * 
+ * Displays a sticky footer with:
+ * - The total number of tickets in the cart
+ * - The total price of all tickets
+ * - A "Checkout now" button (disabled if the cart is empty)
+ * 
+ */
+
 export const Footer = ({ cart, onCheckout }: FooterProps) => {
     return (
         <nav className="sticky bottom-0 left-0 right-0 bg-white border-t border-zinc-200 flex justify-center">
