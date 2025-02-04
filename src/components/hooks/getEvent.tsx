@@ -11,7 +11,7 @@ interface EventData {
   place: string;
 }
 
-// Custom hook for fetching event data
+// Gets event data. Use API (method:GET) https://nfctron-frontend-seating-case-study-2024.vercel.app/event
 export const getEvent = () => {
   const [event, setEvent] = useState<EventData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

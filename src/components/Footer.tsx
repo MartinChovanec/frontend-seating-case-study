@@ -23,7 +23,7 @@ export const Footer = ({ cart, onCheckout }: FooterProps) => {
                 <Button
                     disabled={cart.length === 0}
                     variant="default"
-                    onClick={onCheckout} // Otevře modal
+                    onClick={onCheckout} // Open modal
                 >
                     Checkout now
                 </Button>

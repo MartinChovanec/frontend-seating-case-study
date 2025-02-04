@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
+// Displays a confirmation page with information about the completed order
 export const OrderConfirmation = () => {
     const [order, setOrder] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Získání dat o objednávce z localStorage
+        // Retrieving order data from localStorage
         const storedOrder = localStorage.getItem("order");
         if (storedOrder) {
             setOrder(JSON.parse(storedOrder));

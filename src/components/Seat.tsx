@@ -45,6 +45,8 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
         }
     };
 
+    //There are four seat colours. The seat that is in the cart is marked as green. S
+    // Seats that are unavailable are in grey. Amber colour is for VIP and blue is for regular tickets.
     const seatClass = isUnavailable
         ? "bg-gray-400 opacity-60"
         : inCart

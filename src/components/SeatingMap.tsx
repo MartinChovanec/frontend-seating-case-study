@@ -7,7 +7,7 @@ interface SeatingCardProps {
     seatsError: string | null;
     seats: SeatData | null;
 }
-
+// Generates seat map
 export const SeatingMap = ({ seatsLoading, seatsError, seats }: SeatingCardProps) => {
     return (
         <div className="bg-white rounded-md w-full xl:max-w-[calc(100%-340px)] p-3 shadow-sm">

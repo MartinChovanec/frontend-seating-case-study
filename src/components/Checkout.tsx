@@ -4,6 +4,8 @@ import { getEvent } from "@/components/hooks/GetEvent";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
+// Sends an order. Use this API (Method:POST) https://nfctron-frontend-seating-case-study-2024.vercel.app/order 
+
 const Checkout = () => {
     const navigate = useNavigate();
     const { cart, clearCart } = useCart();
@@ -14,7 +16,7 @@ const Checkout = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Zjistit, zda je uživatel přihlášen
+    // is user logged in?
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
@@ -44,10 +46,9 @@ const Checkout = () => {
             return;
         }
 
-        console.log("Cart obsah před odesláním:", cart);
 
         const orderData = {
-            eventId: event?.eventId || "", // Event ID z API
+            eventId: event?.eventId || "", 
             tickets: cart.map((ticket) => ({
                 ticketTypeId: ticket.ticketTypeId,
                 seatId: ticket.seatId,
@@ -75,9 +76,9 @@ const Checkout = () => {
             const responseData = await response.json();
             console.log("Objednávka úspěšně odeslána:", responseData);
 
-            // Vymazat košík a přesměrovat na potvrzení objednávky
+            
             clearCart();
-            // Uložení objednávky do localStorage
+            
             localStorage.setItem("order", JSON.stringify(responseData));
 
             navigate("/order-confirmation");

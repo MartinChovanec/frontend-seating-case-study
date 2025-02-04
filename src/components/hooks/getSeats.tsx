@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { SeatData } from "@/types/types";
 
+// Gets ticket Data. Use API (method:GET) https://nfctron-frontend-seating-case-study-2024.vercel.app/event-tickets?eventId=<uuid>
+// Because api returns different numbers of seats in rows.
+// For better clarity we enrich the output with seats (these seats cannot be added to the basket) that api did not return. 
+// This means. We ensure that each row displays the same number of seats.
+
 export const getSeats = (eventId: string) => {
     const [seats, setSeats] = useState<SeatData | null>(null);
     const [loading, setLoading] = useState<boolean>(true);

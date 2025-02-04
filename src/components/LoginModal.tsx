@@ -10,9 +10,11 @@ interface LoginModalProps {
     onSuccess: (user: { email: string; firstName: string; lastName: string }) => void;
 }
 
+// fetch, which handles user login to the system. Use this API(method:POST) https://nfctron-frontend-seating-case-study-2024.vercel.app/login
+
 export const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
-    const navigate = useNavigate(); // Použití navigate
-    const { cart } = useCart(); // Získáme stav košíku
+    const navigate = useNavigate(); 
+    const { cart } = useCart(); 
     const [loginData, setLoginData] = useState({ email: "", password: "" });
     const [loginError, setLoginError] = useState<string | null>(null);
 

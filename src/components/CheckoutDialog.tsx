@@ -9,6 +9,8 @@ interface CheckoutDialogProps {
     navigate: (path: string) => void;
 }
 
+//Modal, which will be displayed after checkout. The user can choose whether to log in or continue as a guest
+
 export const CheckoutDialog = ({
     open,
     setIsCheckoutOpen,
@@ -29,8 +31,8 @@ export const CheckoutDialog = ({
                             <Button
                                 variant="default"
                                 onClick={() => {
-                                    setIsCheckoutOpen(false); // Zavřít checkout modal
-                                    setIsLoginOpen(true); // Otevřít login modal
+                                    setIsCheckoutOpen(false); // Close checkout modal
+                                    setIsLoginOpen(true); // Open login modal
                                 }}
                             >
                                 Sign in
@@ -38,8 +40,8 @@ export const CheckoutDialog = ({
                             <Button
                                 variant="secondary"
                                 onClick={() => {
-                                    setIsCheckoutOpen(false); // Zavři modal
-                                    navigate("/checkout"); // Přesměruj na checkout stránku
+                                    setIsCheckoutOpen(false); // Close modal
+                                    navigate("/checkout"); // Redirect to na checkout
                                 }}
                             >
                                 Continue as a guest

@@ -7,6 +7,7 @@ interface EventInfoProps {
     error: string | null;
 }
 
+// Renders main information about the evennnt
 export const EventInfoPanel = ({ event, loading, error }: EventInfoProps) => {
     return (
         <aside className="w-full xl:w-80 bg-white rounded-md shadow-sm p-3 flex flex-col gap-2 mb-4 xl:mb-0">
@@ -22,13 +23,13 @@ export const EventInfoPanel = ({ event, loading, error }: EventInfoProps) => {
                     <h1 className="text-xl text-zinc-900 font-semibold">{event.namePub}</h1>
                     <p className="text-sm text-zinc-500">{event.description}</p>
                     <p className="text-sm text-zinc-400">
-                        <strong>Místo:</strong> {event.place}
+                        <strong>Place:</strong> {event.place}
                     </p>
                     <p className="text-sm text-zinc-400">
-                        <strong>Od:</strong> {new Date(event.dateFrom).toLocaleString()}
+                        <strong>From:</strong> {new Date(event.dateFrom).toLocaleString()}
                     </p>
                     <p className="text-sm text-zinc-400">
-                        <strong>Do:</strong> {new Date(event.dateTo).toLocaleString()}
+                        <strong>To:</strong> {new Date(event.dateTo).toLocaleString()}
                     </p>
                     <Button variant="secondary" disabled>
                         Add to calendar
