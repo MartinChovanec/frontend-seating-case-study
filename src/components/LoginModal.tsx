@@ -8,6 +8,7 @@ interface LoginModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSuccess: (user: { email: string; firstName: string; lastName: string }) => void;
+    isCheckoutClicked: boolean;
 }
 
 /**
@@ -26,9 +27,14 @@ interface LoginModalProps {
  *
  */
 
-export const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
-    const navigate = useNavigate(); 
-    const { cart } = useCart(); 
+export const LoginModal = ({
+    isOpen,
+    onClose,
+    onSuccess,
+    isCheckoutClicked,
+}: LoginModalProps) => {
+    const navigate = useNavigate();
+    const { cart } = useCart();
     const [loginData, setLoginData] = useState({ email: "", password: "" });
     const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -70,7 +76,7 @@ export const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
             });
 
             // Přesměrování na základě stavu košíku
-            if (cart.length > 0) {
+            if (isCheckoutClicked && cart.length > 0) {
                 navigate("/checkout");
             } else {
                 navigate("/");

@@ -7,6 +7,7 @@ interface CheckoutDialogProps {
     isLoggedIn: boolean;
     setIsLoginOpen: (open: boolean) => void;
     navigate: (path: string) => void;
+    setIsCheckoutClicked: (value: boolean) => void;
 }
 
 /**
@@ -23,7 +24,11 @@ export const CheckoutDialog = ({
     isLoggedIn,
     setIsLoginOpen,
     navigate,
+    setIsCheckoutClicked,
 }: CheckoutDialogProps) => {
+    
+    setIsCheckoutClicked(false);
+
     return (
         <Dialog open={open} onOpenChange={setIsCheckoutOpen}>
             <DialogContent>

@@ -66,7 +66,6 @@ const Checkout = () => {
             return;
         }
 
-
         const orderData = {
             eventId: event?.eventId || "", 
             tickets: cart.map((ticket) => ({
@@ -96,7 +95,6 @@ const Checkout = () => {
             const responseData = await response.json();
             console.log("Objednávka úspěšně odeslána:", responseData);
 
-            
             clearCart();
             
             localStorage.setItem("order", JSON.stringify(responseData));
@@ -114,7 +112,9 @@ const Checkout = () => {
             <div className="bg-white shadow-md rounded-md p-6 max-w-lg w-full">
                 <h1 className="text-2xl font-semibold text-center text-gray-900 mb-4">Summary</h1>
                 <p className="text-sm text-gray-500 text-center mb-6">
-                    {user ? "Zkontrolujte své údaje a dokončete nákup." : "Vyplňte své údaje pro dokončení nákupu."}
+                    {user
+                        ? "Check your details and complete the purchase.."
+                        : "Fill in your details to complete your purchase."}
                 </p>
 
                 {error && (
@@ -131,7 +131,7 @@ const Checkout = () => {
                         cart.map((item, index) => (
                             <div key={index} className="border-b py-2 text-zinc-500">
                                 <p>
-                                    <strong>Row:</strong> {item.row}, <strong>Sedadlo:</strong> {item.place}
+                                    <strong>Row:</strong> {item.row}, <strong>Seat:</strong> {item.place}
                                 </p>
                                 <p>
                                     <strong>Price:</strong> {item.price} CZK

@@ -31,6 +31,8 @@ function App() {
 
     const [isLoginOpen, setIsLoginOpen] = useState(false);
 
+    const [isCheckoutClicked, setIsCheckoutClicked] = useState(false);
+
     // checket if user is already log in a wants to checkout
     useEffect(() => {
         if (isCheckoutOpen && isLoggedIn) {
@@ -39,7 +41,7 @@ function App() {
         }
     }, [isCheckoutOpen, isLoggedIn, navigate]);
 
-    console.log(user)
+    console.log(user);
 
     return (
         <Routes>
@@ -49,9 +51,9 @@ function App() {
                 element={
                     <div className="flex flex-col grow bg-zinc-100">
                         {/* header (wrapper) */}
-                        <Header 
-                            user={user} 
-                            setIsLoginOpen={setIsLoginOpen} 
+                        <Header
+                            user={user}
+                            setIsLoginOpen={setIsLoginOpen}
                             setIsLoggedIn={setIsLoggedIn}
                             isLoggedIn={isLoggedIn}
                             event={event}
@@ -66,7 +68,13 @@ function App() {
                             </div>
                         </main>
 
-                        <Footer cart={cart} onCheckout={() => setIsCheckoutOpen(true)} />
+                        <Footer
+                            cart={cart}
+                            onCheckout={() => {
+                                setIsCheckoutOpen(true);
+                                setIsCheckoutClicked(true);
+                            }}
+                        />
 
                         {/* Checkout Modal */}
                         <CheckoutDialog
@@ -75,6 +83,7 @@ function App() {
                             isLoggedIn={isLoggedIn}
                             setIsLoginOpen={setIsLoginOpen}
                             navigate={navigate}
+                            setIsCheckoutClicked={setIsCheckoutClicked}
                         />
 
                         {/* Login Modal */}
@@ -85,6 +94,7 @@ function App() {
                                 setIsLoggedIn(true);
                                 setUser(userData);
                             }}
+                            isCheckoutClicked={isCheckoutClicked}
                         />
                     </div>
                 }
