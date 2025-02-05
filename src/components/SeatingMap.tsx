@@ -16,9 +16,33 @@ interface SeatingCardProps {
  * - Uses the `Seat` component for individual seats.
  */
 export const SeatingMap = ({ seatsLoading, seatsError, seats }: SeatingCardProps) => {
+
+    const getTicketColor = (ticketName: string | undefined) => {
+        switch (ticketName) {
+            case "VIP ticket":
+                return "bg-amber-400";
+            case "Regular ticket":
+                return "bg-blue-500";
+            default:
+                return "bg-gray-400";
+        }
+    };
     return (
         <div className="bg-white rounded-md w-full xl:max-w-[calc(100%-340px)] p-3 shadow-sm">
             <h2 className="text-xl font-semibold mb-4 text-zinc-900">Choose your seats</h2>
+            {/* Legenda */}
+            {seats && seats.ticketTypes.length > 0 && (
+                <div className="flex flex-wrap gap-4 mb-4">
+                    {seats.ticketTypes.map((ticketType) => (
+                        <div key={ticketType.id} className="flex items-center gap-2">
+                            <span className={`w-4 h-4 rounded-full ${getTicketColor(ticketType.name)}`} />
+                            <span className="text-sm text-zinc-700">
+                                {ticketType.name} - {ticketType.price} CZK
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            )}
             {seatsLoading && <p>Loading seats...</p>}
             {seatsError && <p className="text-red-500">{seatsError}</p>}
             {!seatsLoading &&
