@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { EventData } from "@/types/types";
+import { useState, useEffect } from "react";
 
 interface EventInfoProps {
     event: EventData | null;
@@ -7,12 +8,12 @@ interface EventInfoProps {
     error: string | null;
 }
 
+const formatDateToICS = (dateString: string) => {
+    return new Date(dateString).toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+};
+
 const generateICSFile = (event: EventData) => {
     if (!event) return "";
-
-    const formatDateToICS = (dateString: string) => {
-        return new Date(dateString).toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-    };
 
     const startDate = formatDateToICS(event.dateFrom);
     const endDate = formatDateToICS(event.dateTo);
@@ -44,6 +45,20 @@ END:VCALENDAR`;
     return URL.createObjectURL(blob);
 };
 
+const generateGoogleCalendarUrl = (event: EventData) => {
+    const startDate = formatDateToICS(event.dateFrom);
+    const endDate = formatDateToICS(event.dateTo);
+
+    return (
+        `https://calendar.google.com/calendar/render?action=TEMPLATE` +
+        `&text=${encodeURIComponent(event.namePub)}` +
+        `&dates=${startDate}/${endDate}` +
+        `&details=${encodeURIComponent(event.description)}` +
+        `&location=${encodeURIComponent(event.place)}` +
+        `&sf=true&output=xml`
+    );
+};
+
 /**
  * EventInfoPanel Component
  *
@@ -53,6 +68,12 @@ END:VCALENDAR`;
  * - A disabled "Add to calendar" button (can be extended in the future)
  */
 export const EventInfoPanel = ({ event, loading, error }: EventInfoProps) => {
+    const [isAndroid, setIsAndroid] = useState(false);
+
+    useEffect(() => {
+        setIsAndroid(/Android/i.test(navigator.userAgent));
+    }, []);
+
     return (
         <aside className="w-full xl:w-80 bg-white rounded-md shadow-sm p-3 flex flex-col gap-2 mb-4 xl:mb-0">
             {loading && <p>Loading event details...</p>}
@@ -75,9 +96,16 @@ export const EventInfoPanel = ({ event, loading, error }: EventInfoProps) => {
                     <p className="text-sm text-zinc-400">
                         <strong>End:</strong> {new Date(event.dateTo).toLocaleString()}
                     </p>
-                    <a href={generateICSFile(event)} download={`${event.namePub.replace(/\s+/g, "_")}.ics`}>
-                        <Button variant="secondary">Add to calendar</Button>
-                    </a>
+
+                    {isAndroid ? (
+                        <a href={generateGoogleCalendarUrl(event)} target="_blank" rel="noopener noreferrer">
+                            <Button variant="secondary">Add to Calendar</Button>
+                        </a>
+                    ) : (
+                        <a href={generateICSFile(event)} download={`${event.namePub.replace(/\s+/g, "_")}.ics`}>
+                            <Button variant="secondary">Add to Calendar</Button>
+                        </a>
+                    )}
                 </>
             )}
         </aside>
