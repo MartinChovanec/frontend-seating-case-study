@@ -8,10 +8,20 @@ interface EventInfoProps {
     error: string | null;
 }
 
+/**
+ * Formats a date string to the iCalendar (ICS) format.
+ * @param dateString - The date string to be formatted.
+ * @returns A formatted date string in ICS format.
+ */
 const formatDateToICS = (dateString: string) => {
     return new Date(dateString).toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
 };
 
+/**
+ * Generates an ICS (iCalendar) file for an event.
+ * @param event - The event data to be converted into an ICS file.
+ * @returns A downloadable ICS file URL.
+ */
 const generateICSFile = (event: EventData) => {
     if (!event) return "";
 
@@ -45,6 +55,11 @@ END:VCALENDAR`;
     return URL.createObjectURL(blob);
 };
 
+/**
+ * Generates a Google Calendar event URL.
+ * @param event - The event data to be converted into a Google Calendar link.
+ * @returns A Google Calendar URL.
+ */
 const generateGoogleCalendarUrl = (event: EventData) => {
     const startDate = formatDateToICS(event.dateFrom);
     const endDate = formatDateToICS(event.dateTo);
