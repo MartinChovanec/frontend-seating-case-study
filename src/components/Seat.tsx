@@ -77,11 +77,13 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                 // Non-interactive placeholder seat
                 <div
                     className={cn(
-                        "size-8 rounded-full bg-gray-300 opacity-50 flex items-center justify-center",
+                        "size-8 rounded-full bg-gray-700 opacity-50 flex items-center justify-center",
                         props.className
                     )}
                     ref={ref}
-                />
+                >
+                    <span className="text-white font-bold">&#10007;</span> 
+                    </div>
             ) : (
                 <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
                     <PopoverTrigger
