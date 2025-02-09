@@ -7,6 +7,43 @@ interface EventInfoProps {
     error: string | null;
 }
 
+const generateICSFile = (event: EventData) => {
+    if (!event) return "";
+
+    const formatDateToICS = (dateString: string) => {
+        return new Date(dateString).toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+    };
+
+    const startDate = formatDateToICS(event.dateFrom);
+    const endDate = formatDateToICS(event.dateTo);
+
+    const uid = `${event.eventId}@nfctron.com`;
+
+    // Escapeování speciálních znaků
+    const escapeICS = (text: string) =>
+        text
+            .replace(/(\r\n|\r|\n)/g, "\\n")
+            .replace(/,/g, "\\,")
+            .replace(/;/g, "\\;");
+
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//NFCtron//Event Calendar//EN
+BEGIN:VEVENT
+UID:${uid}
+DTSTAMP:${startDate}
+DTSTART:${startDate}
+DTEND:${endDate}
+SUMMARY:${escapeICS(event.namePub)}
+DESCRIPTION:${escapeICS(event.description)}
+LOCATION:${escapeICS(event.place)}
+END:VEVENT
+END:VCALENDAR`;
+
+    const blob = new Blob([icsContent], { type: "text/calendar" });
+    return URL.createObjectURL(blob);
+};
+
 /**
  * EventInfoPanel Component
  *
@@ -33,14 +70,14 @@ export const EventInfoPanel = ({ event, loading, error }: EventInfoProps) => {
                         <strong>Place:</strong> {event.place}
                     </p>
                     <p className="text-sm text-zinc-400">
-                        <strong>From:</strong> {new Date(event.dateFrom).toLocaleString()}
+                        <strong>Start:</strong> {new Date(event.dateFrom).toLocaleString()}
                     </p>
                     <p className="text-sm text-zinc-400">
-                        <strong>To:</strong> {new Date(event.dateTo).toLocaleString()}
+                        <strong>End:</strong> {new Date(event.dateTo).toLocaleString()}
                     </p>
-                    <Button variant="secondary" disabled>
-                        Add to calendar
-                    </Button>
+                    <a href={generateICSFile(event)} download={`${event.namePub.replace(/\s+/g, "_")}.ics`}>
+                        <Button variant="secondary">Add to calendar</Button>
+                    </a>
                 </>
             )}
         </aside>
