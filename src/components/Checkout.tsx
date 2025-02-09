@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 /**
  * Checkout Component
- * 
+ *
  * Handles the order process, including:
  * - Fetching event details
  * - Retrieving cart items
@@ -47,6 +47,19 @@ const Checkout = () => {
         }
     }, []);
 
+    /**
+     * Scrolls the page to the "checkout-title" element when the component mounts.
+     * Necessary for mobile devices.
+     * This ensures that the user always sees the title at the top of the screen,
+     * even if the page loads with a different scroll position.
+     */
+    useEffect(() => {
+        const titleElement = document.getElementById("checkout-title");
+        if (titleElement) {
+            titleElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }, []);
+
     // Handles form field changes.
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +67,7 @@ const Checkout = () => {
     };
 
     // Handles form submission, sends order to API.
-    
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -67,7 +80,7 @@ const Checkout = () => {
         }
 
         const orderData = {
-            eventId: event?.eventId || "", 
+            eventId: event?.eventId || "",
             tickets: cart.map((ticket) => ({
                 ticketTypeId: ticket.ticketTypeId,
                 seatId: ticket.seatId,
@@ -96,7 +109,7 @@ const Checkout = () => {
             console.log("Objednávka úspěšně odeslána:", responseData);
 
             clearCart();
-            
+
             localStorage.setItem("order", JSON.stringify(responseData));
 
             navigate("/order-confirmation");
@@ -110,7 +123,9 @@ const Checkout = () => {
     return (
         <div className="flex flex-col items-center min-h-screen bg-gray-50 p-6">
             <div className="bg-white shadow-md rounded-md p-6 max-w-lg w-full">
-                <h1 className="text-2xl font-semibold text-center text-gray-900 mb-4">Summary</h1>
+                <h1 id="checkout-title" className="text-2xl font-semibold text-center text-gray-900 mb-4">
+                    Summary
+                </h1>
                 <p className="text-sm text-gray-500 text-center mb-6">
                     {user
                         ? "Check your details and complete the purchase.."
