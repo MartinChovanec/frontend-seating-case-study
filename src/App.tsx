@@ -13,6 +13,9 @@ import { Header } from "./components/Header";
 import { UserData } from "./types/types";
 import { Footer } from "./components/Footer";
 import { CheckoutDialog } from "./components/CheckoutDialog";
+import "./il8n.ts";
+
+
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
