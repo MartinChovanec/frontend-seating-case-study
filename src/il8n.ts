@@ -48,6 +48,19 @@ i18n.use(LanguageDetector)
                     "Name": "Name",
                     "Surname":"Surname",
                     "E-mail":"E-mail",
+                    "The order data could not be loaded": "The order data could not be loaded.",
+                    "Error during order": "Error during order",
+                    "Confirmation of order": "Confirmation of order",
+                    "The order could not be completed. Please try again. If problems persist, please contact support":
+                    "The order could not be completed. Please try again. If problems persist, please contact support.",
+                    "Thank you for your purchase": "Thank you for your purchase!",
+                    "Order number": "Order number",
+                    "Total price": "Total price",
+                    "Purchased tickets": "Purchased tickets",
+                    "Ticket": "Ticket",
+                    "Seat ID": "Seat ID",
+                    "Back to the main page": "Back to the main page"
+
    
                 },
             },
@@ -95,6 +108,20 @@ i18n.use(LanguageDetector)
                     "Name": "Jméno",
                     "Surname":"Přijmení",
                     "E-mail":"E-mail",
+                    "The order data could not be loaded": "Objednávku nebylo možné načíst.",
+                    "Error during order": "Chyba u objednávky",
+                    "Confirmation of order": "Potvrzení objednávky",
+                    "The order could not be completed. Please try again. If problems persist, please contact support":
+                    "Objednávku se nepodařilo dokončit. Zkuste to prosím znovu. Pokud problémy přetrvávají, kontaktujte podporu.",
+                    "Thank you for your purchase": "Děkujeme za váš nákup!",
+                    "Order number": "Číslo objednávky",
+                    "Total price": "Celková cena",
+                    "Purchased tickets": "Zakoupené vstupenky",
+                    "Ticket": "Vstupenka",
+                    "Seat ID": "Číslo sedadla",
+                    "Back to the main page": "Zpět na hlavní stránku",
+        
+             
              
                 },
             },
