@@ -13,10 +13,9 @@ i18n.use(LanguageDetector)
                     "ticket_one": "{{count}} ticket",
                     "ticket_other": "{{count}} tickets",
                     "CZK": "CZK",
-                    "Loading event...": "Načítám událost...",
-                    "Logout": "Odhlásit se",
-                    "Login": "Přihlásit se",
-                    "Select language": "Vyberte jazyk",
+                    "Loading event...": "Loading event...",
+                    "Logout": "Logout",
+                    "Login": "Login",
                 },
             },
             cs: {
@@ -26,7 +25,10 @@ i18n.use(LanguageDetector)
                     "ticket_one": "{{count}} vstupenku",
                     "ticket_few": "{{count}} vstupenky",
                     "ticket_many": "{{count}} vstupenek",
-                    "ticket_other": "{{count}} vstupenek", // fallback
+                    "ticket_other": "{{count}} vstupenek",
+                    "Loading event...": "Načítám událost...",
+                    "Logout": "Odhlásit se", // fallback
+                    "Login": "Přihlásit se",
                     "CZK": "Kč",
                 },
             },
