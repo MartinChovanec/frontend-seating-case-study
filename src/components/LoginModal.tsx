@@ -3,6 +3,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
+import { useTranslation } from "react-i18next";
+
 
 interface LoginModalProps {
     isOpen: boolean;
@@ -37,6 +39,8 @@ export const LoginModal = ({
     const { cart } = useCart();
     const [loginData, setLoginData] = useState({ email: "", password: "" });
     const [loginError, setLoginError] = useState<string | null>(null);
+    const { t } = useTranslation();
+
 
     const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -90,7 +94,7 @@ export const LoginModal = ({
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle className="text-gray-900">Login to your account</DialogTitle>
+                    <DialogTitle className="text-gray-900">{t("Login to your account")}</DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-col gap-4">
                     {loginError && <p className="text-red-500">{loginError}</p>}
@@ -111,7 +115,7 @@ export const LoginModal = ({
                         className="border p-2 rounded-md"
                     />
                     <Button variant="default" onClick={handleLoginSubmit}>
-                        Log in
+                    {t("Login")}
                     </Button>
                 </div>
             </DialogContent>

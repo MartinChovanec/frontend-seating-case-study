@@ -1,6 +1,8 @@
 // SeatingCard.tsx
 import { Seat } from "@/components/Seat";
 import { SeatData } from "@/types/types";
+import { useTranslation } from "react-i18next";
+
 
 interface SeatingCardProps {
     seatsLoading: boolean;
@@ -17,6 +19,8 @@ interface SeatingCardProps {
  */
 export const SeatingMap = ({ seatsLoading, seatsError, seats }: SeatingCardProps) => {
 
+    const { t } = useTranslation();
+
     const getTicketColor = (ticketName: string | undefined) => {
         switch (ticketName) {
             case "VIP ticket":
@@ -29,7 +33,7 @@ export const SeatingMap = ({ seatsLoading, seatsError, seats }: SeatingCardProps
     };
     return (
         <div className="bg-white rounded-md w-full xl:max-w-[calc(100%-340px)] p-3 shadow-sm">
-            <h2 className="text-xl font-semibold mb-4 text-zinc-900">Choose your seats</h2>
+            <h2 className="text-xl font-semibold mb-4 text-zinc-900">{t("Choose your seats")}</h2>
             {/* Legenda */}
             {seats && seats.ticketTypes.length > 0 && (
                 <div className="flex flex-wrap gap-4 mb-4">
@@ -37,19 +41,19 @@ export const SeatingMap = ({ seatsLoading, seatsError, seats }: SeatingCardProps
                         <div key={ticketType.id} className="flex items-center gap-2">
                             <span className={`w-4 h-4 rounded-full ${getTicketColor(ticketType.name)}`} />
                             <span className="text-sm text-zinc-700">
-                                {ticketType.name} - {ticketType.price} CZK
+                                {t(ticketType.name)} - {ticketType.price} {t("CZK")}
                             </span>
                         </div>
                     ))}
                 </div>
             )}
-            {seatsLoading && <p>Loading seats...</p>}
+            {seatsLoading && <p>{t("Loading seats...")}</p>}
             {seatsError && <p className="text-red-500">{seatsError}</p>}
             {!seatsLoading &&
                 seats &&
                 seats.seatRows.map((row) => (
                     <div key={row.seatRow} className="mb-4 last:mb-0">
-                        <h3 className="text-left text-xs font-medium text-zinc-600 mb-2">Row {row.seatRow}</h3>
+                        <h3 className="text-left text-xs font-medium text-zinc-600 mb-2">{t("Row")} {row.seatRow}</h3>
                         <div className="flex gap-2 overflow-x-auto">
                             {row.seats.map((seat) => {
                                 const ticketType = seats.ticketTypes.find((type) => type.id === seat.ticketTypeId);
