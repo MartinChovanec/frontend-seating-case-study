@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "@/components/ui/button.tsx";
+import { useTranslation } from "react-i18next";
 
 interface CheckoutDialogProps {
     open: boolean;
@@ -29,16 +30,18 @@ export const CheckoutDialog = ({
     
     setIsCheckoutClicked(false);
 
+    const { t } = useTranslation();
+
     return (
         <Dialog open={open} onOpenChange={setIsCheckoutOpen}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle className="text-gray-600">Are you registered?</DialogTitle>
+                    <DialogTitle className="text-gray-600">{t("Are you registered?")}</DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-col gap-4">
                     {!isLoggedIn ? (
                         <>
-                            <p className="text-sm text-gray-900">Sign in to your account or continue as a guest.</p>
+                            <p className="text-sm text-gray-900">{t("Sign in to your account or continue as a guest.")}</p>
                             <Button
                                 variant="default"
                                 onClick={() => {
@@ -46,7 +49,7 @@ export const CheckoutDialog = ({
                                     setIsLoginOpen(true); // Open login modal
                                 }}
                             >
-                                Sign in
+                                {t("Sign in")}
                             </Button>
                             <Button
                                 variant="secondary"
@@ -55,11 +58,11 @@ export const CheckoutDialog = ({
                                     navigate("/checkout"); // Redirect to na checkout
                                 }}
                             >
-                                Continue as a guest
+                                {t("Continue as a guest")}
                             </Button>
                         </>
                     ) : (
-                        <p className="text-sm text-gray-600">You're logged in. Proceed to payment.</p>
+                        <p className="text-sm text-gray-600">{t("You're logged in. Proceed to payment.")}</p>
                     )}
                 </div>
             </DialogContent>

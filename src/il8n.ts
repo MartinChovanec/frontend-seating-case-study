@@ -29,6 +29,12 @@ i18n.use(LanguageDetector)
                     "VIP ticket": "VIP ticket",
                     "Regular ticket": "Regular ticket",
                     "Error loading seats": "Error loading seats",
+                    "Are you registered?": "Are you registered?",
+                    "Sign in to your account or continue as a guest.": "Sign in to your account or continue as a guest.",
+                    "Sign in": "Sign in",
+                    "Continue as a guest": "Continue as a guest",
+                    "You're logged in. Proceed to payment.": "You're logged in. Proceed to payment.",
+   
                 },
             },
             cs: {
@@ -56,6 +62,12 @@ i18n.use(LanguageDetector)
                     "VIP ticket": "VIP vstupenka",
                     "Regular ticket": "Běžná vstupenka",
                     "Error loading seats": "Chyba při načítání sedadel",
+                    "Are you registered?": "Jste registrováni?",
+                    "Sign in to your account or continue as a guest.": "Přihlaste se do svého účtu nebo pokračujte jako host.",
+                    "Sign in": "Přihlásit se",
+                    "Continue as a guest": "Pokračovat jako host",
+                    "You're logged in. Proceed to payment.": "Jste přihlášeni. Pokračujte k platbě.",
+             
                 },
             },
         },
