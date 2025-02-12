@@ -28,7 +28,7 @@ function App() {
 
     const { cart } = useCart();
 
-    const navigate = useNavigate(); // React Router navigace
+    const navigate = useNavigate(); 
 
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 

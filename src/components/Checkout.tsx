@@ -3,6 +3,7 @@ import { useCart } from "@/context/CartContext";
 import { getEvent } from "@/services/getEvent";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 /**
  * Checkout Component
@@ -28,6 +29,7 @@ const Checkout = () => {
     const [form, setForm] = useState({ firstName: "", lastName: "", email: "" });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const { t } = useTranslation();
 
     /**
      * Loads user data from localStorage (if available).
@@ -74,7 +76,7 @@ const Checkout = () => {
         setError(null);
 
         if (!form.firstName || !form.lastName || !form.email) {
-            setError("Vyplňte všechna povinná pole.");
+            setError(t("Fill in all required fields."));
             setLoading(false);
             return;
         }
@@ -92,8 +94,6 @@ const Checkout = () => {
             },
         };
 
-        console.log(orderData, "orderData to fetch");
-
         try {
             const response = await fetch("https://nfctron-frontend-seating-case-study-2024.vercel.app/order", {
                 method: "POST",
@@ -102,11 +102,10 @@ const Checkout = () => {
             });
 
             if (!response.ok) {
-                throw new Error("Chyba při odesílání objednávky.");
+                throw new Error(t("Error when submitting your order"));
             }
 
             const responseData = await response.json();
-            console.log("Objednávka úspěšně odeslána:", responseData);
 
             clearCart();
 
@@ -114,7 +113,7 @@ const Checkout = () => {
 
             navigate("/order-confirmation");
         } catch (err: any) {
-            setError(err.message || "Nepodařilo se dokončit nákup.");
+            setError(err.message || t("Failed to complete the purchase. Please try again"));
         } finally {
             setLoading(false);
         }
@@ -124,39 +123,39 @@ const Checkout = () => {
         <div className="flex flex-col items-center min-h-screen bg-gray-50 p-6">
             <div className="bg-white shadow-md rounded-md p-6 max-w-lg w-full">
                 <h1 id="checkout-title" className="text-2xl font-semibold text-center text-gray-900 mb-4">
-                    Summary
+                    {t("Summary")}
                 </h1>
                 <p className="text-sm text-gray-500 text-center mb-6">
                     {user
-                        ? "Check your details and complete the purchase.."
-                        : "Fill in your details to complete your purchase."}
+                        ? t("Check your details and complete the purchase")
+                        : t("Fill in your details to complete your purchase")}
                 </p>
 
                 {error && (
                     <p className="text-red-500 text-sm text-center">
-                        Failed to complete the purchase. Please try again
+                        {t("Failed to complete the purchase. Please try again")}
                     </p>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <h3 className="text-lg font-semibold text-gray-900 mt-4">List of tickets</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mt-4">{t("List of tickets")}</h3>
                     {cart.length === 0 ? (
-                        <p className="text-gray-500 text-sm text-center">There are no tickets in the cart.</p>
+                        <p className="text-gray-500 text-sm text-center">{t("There are no tickets in the cart")}</p>
                     ) : (
                         cart.map((item, index) => (
                             <div key={index} className="border-b py-2 text-zinc-500">
                                 <p>
-                                    <strong>Row:</strong> {item.row}, <strong>Seat:</strong> {item.place}
+                                    <strong>{t("Row")}:</strong> {item.row}, <strong>{t("Seat")}:</strong> {item.place}
                                 </p>
                                 <p>
-                                    <strong>Price:</strong> {item.price} CZK
+                                    <strong>{t("Price")}:</strong> {item.price} {t("CZK")}
                                 </p>
                             </div>
                         ))
                     )}
                     {/* Formulář pro hosta nebo možnost upravit informace pro přihlášeného uživatele */}
                     <div>
-                        <label className="text-sm font-medium text-gray-700">Name</label>
+                        <label className="text-sm font-medium text-gray-700">{t("Name")}</label>
                         <input
                             type="text"
                             name="firstName"
@@ -168,7 +167,7 @@ const Checkout = () => {
                     </div>
 
                     <div>
-                        <label className="text-sm font-medium text-gray-700">Surname</label>
+                        <label className="text-sm font-medium text-gray-700">{t("Surname")}</label>
                         <input
                             type="text"
                             name="lastName"
@@ -180,7 +179,7 @@ const Checkout = () => {
                     </div>
 
                     <div>
-                        <label className="text-sm font-medium text-gray-700">E-mail</label>
+                        <label className="text-sm font-medium text-gray-700">{t("E-mail")}</label>
                         <input
                             type="email"
                             name="email"
@@ -193,10 +192,10 @@ const Checkout = () => {
 
                     <div className="flex justify-between mt-4">
                         <Button type="button" variant="secondary" onClick={() => navigate("/")}>
-                            Go back
+                            {t("Go back")}
                         </Button>
                         <Button type="submit" variant="default" disabled={loading}>
-                            {loading ? "Sending..." : "Complete order"}
+                            {loading ? t("Sending...") : t("Complete order")}
                         </Button>
                     </div>
                 </form>
