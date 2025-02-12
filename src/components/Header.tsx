@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.tsx"
 import { Button } from "@/components/ui/button.tsx";
 import { UserData, EventData } from "@/types/types";
 import { useTranslation } from "react-i18next";
+import Logo from "@/nfctron-logo-dark.svg";
 
 interface HeaderProps {
     user: UserData | null;
@@ -41,8 +42,9 @@ export const Header = ({ user, setIsLoginOpen, setIsLoggedIn, isLoggedIn, event,
             {/* inner content */}
             <div className="max-w-screen-lg p-4 grow flex items-center justify-between gap-3">
                 {/* application/author image/logo placeholder */}
-                <div className="max-w-[250px] w-full flex">
-                    <div className="bg-zinc-100 rounded-md size-12" />
+                {/* Logo */}
+                <div className="max-w-[100px] w-full flex">
+                    <img src={Logo} alt="NFCtron Logo" className="h-10 w-auto object-contain" />
                 </div>
                 {/* app/author title/name placeholder */}
                 <h1 className="text-zinc-900 flex-1 text-center truncate max-w-[200px] md:max-w-none max-[520px]:hidden">
