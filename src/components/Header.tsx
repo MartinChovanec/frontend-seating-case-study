@@ -15,7 +15,6 @@ import Logo from "@/nfctron-logo-dark.svg";
 
 interface HeaderProps {
     user: UserData | null;
-    setIsLoginOpen: (open: boolean) => void;
     setIsLoggedIn: (isLoggedIn: boolean) => void;
     isLoggedIn: boolean;
     event: EventData | null;
@@ -35,7 +34,7 @@ interface HeaderProps {
  *
  */
 
-export const Header = ({ user, setIsLoginOpen, setIsLoggedIn, isLoggedIn, event, setUser, openLogin }: HeaderProps) => {
+export const Header = ({ user, setIsLoggedIn, isLoggedIn, event, setUser, openLogin }: HeaderProps) => {
     const { t, i18n } = useTranslation();
 
     return (

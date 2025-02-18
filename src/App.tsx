@@ -58,7 +58,6 @@ function App() {
                         {/* header (wrapper) */}
                         <Header
                             user={user}
-                            setIsLoginOpen={setIsLoginOpen}
                             setIsLoggedIn={setIsLoggedIn}
                             isLoggedIn={isLoggedIn}
                             event={event}
@@ -89,7 +88,6 @@ function App() {
                             isLoggedIn={isLoggedIn}
                             setIsLoginOpen={setIsLoginOpen}
                             navigate={navigate}
-                            setIsCheckoutClicked={setIsCheckoutClicked}
                         />
 
                         {/* Login Modal */}
