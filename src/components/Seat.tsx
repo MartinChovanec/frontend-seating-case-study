@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils.ts";
 import React from "react";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { useTranslation } from "react-i18next";
 
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     "data-number"?: number; // Seat number
@@ -44,6 +45,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const { addToCart, removeFromCart, isInCart } = useCart();
     const inCart = isInCart(seatId || "");
+    const { t } = useTranslation();
 
     const handleClick = () => {
         if (inCart) {
@@ -100,10 +102,10 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                             onClick={handleClick}
                         >
                             {inCart ? (
-                                // Pokud je sedadlo v košíku, zobraz zelený checkmark
+                                // if the seat is in a cart then show green checkmark
                                 <span className="text-white font-bold">&#10003;</span>
                             ) : (
-                                // Jinak zobraz číslo sedadla
+                                // otherwise show seatNnumber
                                 <span className="text-xs font-medium">{seatNumber}</span>
                             )}
                         </div>
@@ -114,25 +116,25 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>((props, ref) => 
                     >
                         <div className="p-2 text-sm">
                             <p>
-                                <strong>Řada:</strong> {row}
+                                <strong>{t("Row")}:</strong> {row}
                             </p>
                             <p>
-                                <strong>Sedadlo:</strong> {seatNumber}
+                                <strong>{t("Seat")}:</strong> {seatNumber}
                             </p>
                             {ticketTypeId && (
                                 <p>
-                                    <strong>Typ:</strong> {name}
+                                    <strong>{t("Type of the ticket")}:</strong> {name == "Regular ticket" ? t("Regular ticket") : t("VIP ticket")}
                                 </p>
                             )}
                             {price !== undefined && (
                                 <p>
-                                    <strong>Cena:</strong> {price} CZK
+                                    <strong>{t("Price")}:</strong> {price} CZK
                                 </p>
                             )}
                         </div>
                         <footer className="flex flex-col">
                             <Button onClick={handleClick} variant={inCart ? "destructive" : "default"} size="sm">
-                                {inCart ? "Remove from cart" : "Add to cart"}
+                                {inCart ? t("Remove from cart") : t("Add to cart")}
                             </Button>
                         </footer>
                     </PopoverContent>

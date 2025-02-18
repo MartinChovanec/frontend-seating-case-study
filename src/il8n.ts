@@ -26,6 +26,9 @@ i18n.use(LanguageDetector)
                     "Choose your seats": "Choose your seats",
                     "Loading seats...": "Loading seats...",
                     "Row": "Row",
+                    "Seat": "Seat",
+                    "Price": "Price",
+                    "Type of the ticket": "Type of the ticket",
                     "VIP ticket": "VIP ticket",
                     "Regular ticket": "Regular ticket",
                     "Error loading seats": "Error loading seats",
@@ -59,9 +62,9 @@ i18n.use(LanguageDetector)
                     "Purchased tickets": "Purchased tickets",
                     "Ticket": "Ticket",
                     "Seat ID": "Seat ID",
-                    "Back to the main page": "Back to the main page"
-
-   
+                    "Back to the main page": "Back to the main page",
+                    "Remove from cart": "Remove from cart",
+                    "Add to cart": "Add to cart"
                 },
             },
             cs: {
@@ -86,6 +89,9 @@ i18n.use(LanguageDetector)
                     "Choose your seats": "Vyberte si sedadla",
                     "Loading seats...": "Načítání sedadel...",
                     "Row": "Řada",
+                    "Seat": "Sedadlo",
+                    "Type of the ticket": "Druh lístku",
+                    "Price": "Cena",
                     "VIP ticket": "VIP vstupenka",
                     "Regular ticket": "Běžná vstupenka",
                     "Error loading seats": "Chyba při načítání sedadel",
@@ -120,9 +126,8 @@ i18n.use(LanguageDetector)
                     "Ticket": "Vstupenka",
                     "Seat ID": "Číslo sedadla",
                     "Back to the main page": "Zpět na hlavní stránku",
-        
-             
-             
+                    "Remove from cart": "Odstranit z košíku",
+                    "Add to cart": "Přidat do košíku"
                 },
             },
         },
