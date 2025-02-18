@@ -18,7 +18,7 @@ interface HeaderProps {
     setIsLoggedIn: (isLoggedIn: boolean) => void;
     isLoggedIn: boolean;
     event: EventData | null;
-    setUser: (userData: null) => void;
+    setUser: (userData: UserData | null) => void;
     openLogin: () => void;
 }
 
