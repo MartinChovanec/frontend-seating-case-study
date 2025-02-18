@@ -15,8 +15,6 @@ import { Footer } from "./components/Footer";
 import { CheckoutDialog } from "./components/CheckoutDialog";
 import "./il8n.ts";
 
-
-
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -28,7 +26,7 @@ function App() {
 
     const { cart } = useCart();
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
@@ -36,7 +34,12 @@ function App() {
 
     const [isCheckoutClicked, setIsCheckoutClicked] = useState(false);
 
-    // checket if user is already log in a wants to checkout
+    const openLoginModal = () => {
+        setIsLoginOpen(true);
+        setIsCheckoutClicked(false);
+    };
+
+    // checke if user is already log in and wants to checkout
     useEffect(() => {
         if (isCheckoutOpen && isLoggedIn) {
             setIsCheckoutOpen(false);
@@ -44,11 +47,10 @@ function App() {
         }
     }, [isCheckoutOpen, isLoggedIn, navigate]);
 
-    console.log(user);
 
     return (
         <Routes>
-            {/* Hlavní stránka aplikace */}
+            {/* Main Page */}
             <Route
                 path="/"
                 element={
@@ -61,6 +63,7 @@ function App() {
                             isLoggedIn={isLoggedIn}
                             event={event}
                             setUser={setUser}
+                            openLogin={openLoginModal}
                         />
                         {/* main body (wrapper) */}
                         <main className="grow flex flex-col justify-center">
@@ -96,6 +99,10 @@ function App() {
                             onSuccess={(userData) => {
                                 setIsLoggedIn(true);
                                 setUser(userData);
+                                if (isCheckoutClicked) {
+                                    navigate("/checkout");
+                                    setIsCheckoutClicked(false); 
+                                }
                             }}
                             isCheckoutClicked={isCheckoutClicked}
                         />

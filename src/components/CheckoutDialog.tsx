@@ -28,7 +28,6 @@ export const CheckoutDialog = ({
     setIsCheckoutClicked,
 }: CheckoutDialogProps) => {
     
-    setIsCheckoutClicked(false);
 
     const { t } = useTranslation();
 

@@ -20,6 +20,7 @@ interface HeaderProps {
     isLoggedIn: boolean;
     event: EventData | null;
     setUser: (userData: null) => void;
+    openLogin: () => void;
 }
 
 /**
@@ -34,7 +35,7 @@ interface HeaderProps {
  *
  */
 
-export const Header = ({ user, setIsLoginOpen, setIsLoggedIn, isLoggedIn, event, setUser }: HeaderProps) => {
+export const Header = ({ user, setIsLoginOpen, setIsLoggedIn, isLoggedIn, event, setUser, openLogin }: HeaderProps) => {
     const { t, i18n } = useTranslation();
 
     return (
@@ -106,7 +107,7 @@ export const Header = ({ user, setIsLoginOpen, setIsLoggedIn, isLoggedIn, event,
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         ) : (
-                            <Button variant="secondary" onClick={() => setIsLoginOpen(true)}>
+                            <Button variant="secondary" onClick={openLogin}>
                                 {t("Login")}
                             </Button>
                         )}
