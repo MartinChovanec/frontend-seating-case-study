@@ -39,13 +39,23 @@ function App() {
         setIsCheckoutClicked(false);
     };
 
-    // checke if user is already log in and wants to checkout
+    // check if user is already log in and wants to checkout
     useEffect(() => {
         if (isCheckoutOpen && isLoggedIn) {
             setIsCheckoutOpen(false);
             navigate("/checkout");
         }
     }, [isCheckoutOpen, isLoggedIn, navigate]);
+    
+
+    const handleLoginSuccess = (userData: UserData) => {
+        setIsLoggedIn(true);
+        setUser(userData);
+        if (isCheckoutClicked) {
+            navigate("/checkout");
+            setIsCheckoutClicked(false);
+        }
+    };
 
 
     return (
@@ -94,14 +104,7 @@ function App() {
                         <LoginModal
                             isOpen={isLoginOpen}
                             onClose={() => setIsLoginOpen(false)}
-                            onSuccess={(userData) => {
-                                setIsLoggedIn(true);
-                                setUser(userData);
-                                if (isCheckoutClicked) {
-                                    navigate("/checkout");
-                                    setIsCheckoutClicked(false); 
-                                }
-                            }}
+                            onSuccess={handleLoginSuccess}
                             isCheckoutClicked={isCheckoutClicked}
                         />
                     </div>
