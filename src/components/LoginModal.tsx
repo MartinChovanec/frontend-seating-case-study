@@ -61,7 +61,6 @@ export const LoginModal = ({
             }
 
             const data = await response.json();
-            console.log("Login successful", data);
 
             // 🟢 Uložit uživatele do localStorage včetně hodnot z API
             localStorage.setItem(

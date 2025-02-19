@@ -153,7 +153,6 @@ const Checkout = () => {
                             </div>
                         ))
                     )}
-                    {/* Formulář pro hosta nebo možnost upravit informace pro přihlášeného uživatele */}
                     <div>
                         <label className="text-sm font-medium text-gray-700">{t("Name")}</label>
                         <input

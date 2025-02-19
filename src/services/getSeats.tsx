@@ -36,7 +36,6 @@ export const getSeats = (eventId: string) => {
                     throw new Error(`Failed to load seats: ${response.statusText}`);
                 }
                 const data: SeatData = await response.json();
-                console.log(data, "sedadla začátek");
 
                 // Find the highest place number across all rows
                 const maxPlace = Math.max(...data.seatRows.flatMap((row) => row.seats.map((seat) => seat.place)));
@@ -61,7 +60,6 @@ export const getSeats = (eventId: string) => {
                 });
 
                 setSeats({ ...data, seatRows: filledSeatRows });
-                console.log(seats, "sedadla final");
             } catch (err: any) {
                 setError(err.message || "Failed to load seats.");
             } finally {
