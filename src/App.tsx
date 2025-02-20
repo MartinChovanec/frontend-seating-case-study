@@ -46,7 +46,6 @@ function App() {
             navigate("/checkout");
         }
     }, [isCheckoutOpen, isLoggedIn, navigate]);
-    
 
     const handleLoginSuccess = (userData: UserData) => {
         setIsLoggedIn(true);
@@ -56,7 +55,6 @@ function App() {
             setIsCheckoutClicked(false);
         }
     };
-
 
     return (
         <Routes>
@@ -111,7 +109,7 @@ function App() {
                 }
             ></Route>
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout" element={<Checkout event={event} />} />
         </Routes>
     );
 }

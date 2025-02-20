@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { getEvent } from "@/services/getEvent";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { EventData } from "@/types/types";
+
+interface CheckoutProps {
+    event: EventData | null;
+}
 
 /**
  * Checkout Component
@@ -20,10 +24,9 @@ import { useTranslation } from "react-i18next";
  *
  */
 
-const Checkout = () => {
+const Checkout = ({ event }: CheckoutProps) => {
     const navigate = useNavigate();
     const { cart, clearCart } = useCart();
-    const { event } = getEvent();
 
     const [user, setUser] = useState<{ email: string; firstName: string; lastName: string } | null>(null);
     const [form, setForm] = useState({ firstName: "", lastName: "", email: "" });
